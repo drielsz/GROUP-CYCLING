@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "GPCiclying",
+    "slug": "GPCiclying",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "GPCiclying"
+}
