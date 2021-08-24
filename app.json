@@ -1,11 +1,37 @@
 {
   "expo": {
-    "name": "GPCiclying",
-    "slug": "GPCiclying",
+    "name": "GroupCiclying",
+    "slug": "GroupCiclying",
     "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
     "assetBundlePatterns": [
       "**/*"
-    ]
-  },
-  "name": "GPCiclying"
+    ],
+    "ios": {
+      "supportsTablet": true
+        
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFF"
+        
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"  
+      
+    }
+    
+
+  }
 }

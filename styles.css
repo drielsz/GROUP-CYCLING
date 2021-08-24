@@ -1,0 +1,214 @@
+/* html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:root {
+    --cor-fundo: #071A34;
+    --cor-gradient-principal: linear-gradient(to left, #FF9052, #FF4E4E);
+    --cor-gradient-principal-inverse: linear-gradient(to right, #FF9052, #FF4E4E);
+    --cor-texto-principal: #FF9052;
+    --cor-texto-branco: #F5F5F5;
+    --sombra-principal-out: 3px 3px 5px #07111F, -3px -3px 5px #172B49;
+    --padding-0-25: 0.25rem;
+    --padding-0-5: 0.5rem;
+    --padding-0-75: 0.75rem;
+    --padding-1: 1rem;
+    --padding-2: 2rem;
+    --padding-4: 4rem;
+    --text-16px: 0.5rem;
+    --text-24px: 1rem;
+    --text-32px: 2rem;
+    --font-1: "Rubik", sans-serif;
+}
+
+
+
+body {
+    background: var(--cor-fundo);
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    font-family: var(--font-1);
+}
+
+
+
+
+
+
+.login-container {
+    padding: var(--padding-2);
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+}
+
+.login {
+    font-size: var(--text-32px);
+    padding-bottom: var(--padding-2);
+    text-align: center;
+    color: var(--cor-texto-principal);
+    text-shadow: var(--sombra-principal-out);
+}
+
+.user {
+    color: var(--cor-texto-principal);
+    font-size: var(--text-24px);
+    padding-bottom: 0.25rem;
+    display: block;
+    text-shadow: var(--sombra-principal-out);
+}
+
+.senha {
+    color: var(--cor-texto-principal);
+    font-size: var(--text-24px);
+    padding-top: var(--padding-2);
+    padding-bottom: 0.25rem;
+    display: block;
+    text-shadow: var(--sombra-principal-out);
+}
+
+
+.form-container {
+    
+}
+
+input {
+    border-radius: 5px;
+    border: 2px solid var(--cor-texto-principal);
+    background: var(--cor-fundo);
+    padding: var(--padding-0-75);
+}
+
+::placeholder {
+    font-family: var(--font-1);
+    color: var(--cor-texto-2);
+
+}
+
+input:before {
+    color: var(--cor-texto-2);
+    content: "Read this: ";
+}
+
+
+.input {
+    
+    font-family: var(--font-1);
+    padding-right: var(--padding-4);
+    color: var(--cor-texto-principal);
+    box-shadow: var(--sombra-principal-out);
+}
+
+.input:active, .input:focus {
+
+}
+
+*:focus {
+    outline: none;
+}
+
+
+.btn {
+    margin-top: var(--padding-1);
+    padding: var(--padding-1);
+    box-shadow: var(--sombra-principal-out);
+    font-family: var(--font-1);
+}
+
+.btn-entrar {
+    color: var(--cor-fundo);
+    border: 0px solid;
+    border-radius: 5px;
+    background: var(--cor-gradient-principal);
+    font-size: var(--text-24px);
+}
+
+.btn-cadastrar {
+    color: var(--cor-texto-principal);
+    border: 0px solid;
+    border-radius: 5px;
+    background: var(--cor-fundo);
+    font-size: var(--text-24px);
+    padding: var(--padding-0-5);
+}
+
+.btn-entrar:active {
+    box-shadow: none;
+}
+
+
+.btn-entrar:hover {
+    background: var(--cor-gradient-principal-inverse);
+}
+
+.btn-cadastrar:active {
+    color: var(--cor-texto-principal);
+    border: 0px solid;
+    background: var(--cor-fundo);
+    font-size: var(--text-24px);
+    box-shadow: inset 3px 3px 5px #07111F, inset -3px -3px 5px #172B49;
+}
+
+.margin-bottom {
+    margin-bottom: 2em;
+} */
+

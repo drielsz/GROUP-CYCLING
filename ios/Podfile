@@ -18,4 +18,6 @@ target 'GPCiclying' do
   #     flipper_post_install(installer)
   #   end
   # end
+  pod 'react-native-fbsdk-next', :path => '../node_modules/react-native-fbsdk-next'
+
 end
