@@ -57,7 +57,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <MyStack />
-      <StatusBar style ="light" />
+      <StatusBar style ="dark" />
     </NavigationContainer>
   );
 }

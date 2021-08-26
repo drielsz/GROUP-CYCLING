@@ -1,22 +1,15 @@
 import React, { Component } from "react";
 import { Platform } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import Signin from '../../pages/Signin';
-import config from '../../config'
-import * as Location from 'expo-location'; 
-
 
 export default class Search extends Component {
-  
-    state = {
+  state = {
     searchFocused: false
   };
 
   render() {
-      
     const { searchFocused } = this.state;
     const { onLocationSelected } = this.props;
-
 
     return (
       <GooglePlacesAutocomplete
@@ -24,8 +17,8 @@ export default class Search extends Component {
         placeholderTextColor="#333"
         onPress={onLocationSelected}
         query={{
-          key: 'AIzaSyAV3UYYuWSpB2u2hOFL3KsR8P9XcRpgWlc',
-          language: 'pt-br',
+          key: "AIzaSyAV3UYYuWSpB2u2hOFL3KsR8P9XcRpgWlc",
+          language: "pt-br"
         }}
         textInputProps={{
           onFocus: () => {
@@ -34,6 +27,7 @@ export default class Search extends Component {
           onBlur: () => {
             this.setState({ searchFocused: false });
           },
+          
           autoCorrect: false
         }}
         listViewDisplayed={searchFocused}
@@ -42,9 +36,8 @@ export default class Search extends Component {
         styles={{
           container: {
             position: "absolute",
-            top: Platform.select({ ios: 20, android: 10 }),
-            width: "70%",
-            
+            top: Platform.select({ ios: 80, android: 60 }),
+            width: "100%"
           },
           textInputContainer: {
             flex: 1,
@@ -52,9 +45,11 @@ export default class Search extends Component {
             height: 54,
             marginHorizontal: 20,
             borderTopWidth: 0,
-            borderBottomWidth: 0
+            borderBottomWidth: 0,
+            
           },
           textInput: {
+            color: '#000',
             height: 54,
             margin: 0,
             borderRadius: 0,
@@ -87,11 +82,11 @@ export default class Search extends Component {
             marginTop: 10
           },
           description: {
-            fontSize: 16
+            fontSize: 12,
           },
           row: {
             padding: 20,
-            height: 58
+            height: 70
           }
         }}
       />

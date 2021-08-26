@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, SafeAreaView, ScrollView, View} from 'react-native';
 // import { Container } from './styles';
-import Logo from '../../assets/newlogo.png';
+import Logo from '../../assets/logoxd.png';
 
 
 function Header() {

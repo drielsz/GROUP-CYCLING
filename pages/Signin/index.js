@@ -1,26 +1,41 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { 
     KeyboardView as View, 
     Container, 
     Buttons,
 } from './styles';
 import  Header from '../../components/Header'
-import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, TextInput, Platform } from 'react-native'
+import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, TextInput, Platform,  Alert, } from 'react-native'
 import {useState} from "react";
 import firebase from '../../services/sqlite/FireBase';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Facebook from "expo-facebook";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Recover from '../../anaktisi'
-import {
-  AccessToken,
-  AuthenticationToken,
-  LoginButton,
-} from 'react-native-fbsdk-next';
 
 
 
  function Signin({navigation}) {
+
+  useEffect(() => {
+    NavigateToAuthORGroupScreen()
+  },[navigation])
+   function NavigateToAuthORGroupScreen() {
+     const {currentUser} = firebase.auth();
+     setTimeout(function () {
+       if (currentUser != null ){
+         navigation.reset({
+           index:0,
+           routes: [{name: "Signin"}]
+         })
+       } else{        
+        navigation.reset({
+          index:0,
+          routes: [{name: "Principal"}]
+        })
+      }
+   }, 1000)
+  }
 
    const signUpFacebook = async () => {
      try {
@@ -81,7 +96,27 @@ import {
         index: 0,
         routes: [{name:"Principal"}] 
   })
-    })
+    }).catch((e)=>{
+      console.log('Recover', 'recover' + e);
+      switch (e.code) {
+        
+        case 'auth/user-not-found':
+          Alert.alert('Erro', 'Usúario não cadastrado.')
+          break;
+
+        case 'auth/wrong-password':
+          Alert.alert('Erro', 'Erro na senha.');
+          break;
+          
+        case 'auth/invalid-email':
+          Alert.alert('Erro', 'Email inválido.');
+          break;
+
+        case 'auth/user-disabled':
+          Alert.alert('Erro', 'Úsuario desabilitado.')
+          break;
+      }
+    });
   }
 
 
