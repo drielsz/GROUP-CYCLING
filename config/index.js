@@ -72,11 +72,11 @@ export default class Map extends Component {
     const {
       location: { lat: latitude, lon: longitude }
     } = geometry;
-
+    
     this.setState({
       destination: {
-        lat: latitude, 
-        lon: longitude,
+        latitude: geometry.location.lat, 
+        longitude: geometry.location.lng,
         title: data.structured_formatting.main_text
       }
     });
@@ -103,7 +103,7 @@ export default class Map extends Component {
             <Fragment>
               <Directions
                 origin={region}
-                destination={destination}
+                destination={this.state.destination}
                 onReady={result => {
                   this.setState({ duration: Math.floor(result.duration) });
 
@@ -118,16 +118,16 @@ export default class Map extends Component {
                 }}
               />
               <Marker
-                coordinate={destination}
+                coordinate={{ latitude: this.state.destination.latitude, longitude: this.state.destination.longitude }}
                 anchor={{ x: 0, y: 0 }}
-                image={markerImage}
+                
               >
                 <LocationBox>
-                  <LocationText>{destination.title}</LocationText>
+                  <LocationText>{this.state.destination.title}</LocationText>
                 </LocationBox>
               </Marker>
 
-              <Marker coordinate={region} anchor={{ x: 0, y: 0 }}>
+              <Marker coordinate={{ latitude: this.state.destination.latitude, longitude: this.state.destination.longitude }} anchor={{ x: 0, y: 0 }}>
                 <LocationBox>
                   <LocationTimeBox>
                     <LocationTimeText>{duration}</LocationTimeText>
