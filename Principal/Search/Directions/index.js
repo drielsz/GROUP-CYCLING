@@ -3,6 +3,7 @@ import MapViewDirections from "react-native-maps-directions";
 
 const Directions = ({ destination, origin, onReady }) => (
   <MapViewDirections
+    lineDashPattern={[0]}
     destination={destination}
     origin={origin}
     onReady={onReady}

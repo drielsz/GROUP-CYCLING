@@ -1,12 +1,10 @@
-import React from 'react'
 import styled from 'styled-components/native';
-import StyleSheet from 'react-native'
 
 export const PopupPassword = styled.Text`
     color: #f5f5f5;
     position: absolute;
     alignSelf: center;
-    bottom: 18%;
+    bottom: 120%;
 `
 export const Container = styled.View`
     flex: 1;

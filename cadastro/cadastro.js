@@ -7,7 +7,8 @@ import { SafeAreaView,
   StyleSheet, 
   View, 
   TextInput,
-  TouchableOpacity 
+  TouchableOpacity,
+  Alert
 } from 'react-native'
 
 import { 
@@ -15,7 +16,8 @@ import {
     PopupPassword,
     Buttons
 } from './styles2';
-import firebase from '../services/sqlite/FireBase'
+import firebase from '../services/sqlite/Firebase'
+
 import { getAuth, sendEmailVerification } from "firebase/auth";
 import  Header from '../components/Header'
 import { LinearGradient } from 'expo-linear-gradient';
@@ -43,21 +45,53 @@ function TelaCadastro({navigation}) {
     if (([nome, email, senha, rsenha].includes(""))) setPopupPass("Os campos não podem estar vazios!");
   }
 
+    // const user = firebase.auth().currentUser();
+    //  user.sendEmailVerification(); 
+
+    async function getAuth() {
+        const user = firebase.auth().currentUser
+        await user.sendEmailVerification();
+      console.log(`=== ${user.email} ===`)
+    }
+  
+
+  
   const Inscrever = () => { 
     firebase.auth().createUserWithEmailAndPassword(email, senha).then(() => {
       navigation.reset({
         index: 0,
         routes: [{name:"FinCadastro"}]
+      })
 
-    })
-    const auth = getAuth();
-    sendEmailVerification(auth.currentUser).then(() => {
-        // Email verification sent!
-        // ...
-      });
-    })
-    }
-  
+      getAuth()
+      // console.log(`=== ${getAuth} ===`)
+
+    }).catch((e)=>{
+      console.log('Recover', 'recover' + e);
+      switch (e.code) {
+        
+        case 'auth/user-not-found':
+          Alert.alert('Erro', 'Usúario não cadastrado.')
+          break;
+
+        case (email, senha == null):
+          Alert.alert('Erro', 'Campos não preenchidos')  
+          break; 
+
+        case 'auth/wrong-password':
+          Alert.alert('Erro', 'Erro na senha.');
+          break;
+
+        case 'auth/invalid-email':
+          Alert.alert('Erro', 'Email inválido.');
+          break;
+
+        case 'auth/user-disabled':
+          Alert.alert('Erro', 'Úsuario desabilitado.')
+          break;
+      }
+    });
+  }
 
   return (
     <SafeAreaView>
@@ -74,15 +108,21 @@ function TelaCadastro({navigation}) {
 
               <TextInput style={styles.textinput} 
                 placeholderTextColor = "#FF9052"
-                placeholder = "Seu nome:"
+                placeholder = "Nome e sobrenome:"
                 onChangeText = {(text) => {setNome(text)}}
                 onBlur = {VerificaCampos}
+                
               />
               <TextInput style={styles.textinput} 
                 placeholderTextColor = "#FF9052"
                 placeholder = "E-mail:"
                 onChangeText = {(text) => {setUsuario(text)}}
                 onBlur = {VerificaCampos}
+                autoCorrect ={false}
+                keyboardType='email-address'
+                autoCapitalize='none'
+                autoCompleteType='email'
+                textContentType='emailAddress'
               />
               <TextInput style={styles.textinput} 
                 placeholderTextColor = "#FF9052"
@@ -90,6 +130,7 @@ function TelaCadastro({navigation}) {
                 onChangeText = {(text) => {setSenha(text)}}
                 onBlur = {VerificaSenha}
                 secureTextEntry
+                autoCapitalize='none'
               />
               <TextInput style={styles.textinput} 
                 placeholderTextColor = "#FF9052"
@@ -97,6 +138,7 @@ function TelaCadastro({navigation}) {
                 onChangeText = {(text) => {setRSenha(text)}}
                 onBlur = {VerificaSenha}
                 secureTextEntry
+                autoCapitalize='none'
               />
 
               <PopupPassword>
@@ -212,7 +254,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 5,
         width: 450,
-        height: 90,    
+        height: 80,    
         marginBottom: 30,
         borderStyle: 'solid',
         shadowColor: "#07111F",
@@ -222,15 +264,7 @@ const styles = StyleSheet.create({
         shadowRadius: 4.65,
         
         elevation: 6,
-      },
-    // btn-cadastrar {
-    //   color: var(--cor-texto-principal);
-    //   border: 0px solid;
-    //   border-radius: 5px;
-    //   background: var(--cor-fundo);
-    //   font-size: var(--text-24px);
-    //   padding: var(--padding-0-5);
-      
+      },     
       text: {
         backgroundColor: 'transparent',
         fontSize: 20,

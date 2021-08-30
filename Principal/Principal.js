@@ -1,6 +1,6 @@
 
 import Map from '../config'
-import firebase from '../services/sqlite/FireBase'
+import firebase from '../services/sqlite/Firebase'
 import * as React from 'react';
 
 

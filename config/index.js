@@ -3,10 +3,7 @@ import { View, Image, Text} from 'react-native';
 import MapView, { Marker } from 'react-native-maps';    
 import Search from '../Principal/Search'
 import Directions from '../Principal/Search/Directions'
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-
+import * as Location from 'expo-location'
 
 
 
@@ -15,10 +12,14 @@ import Geocoder from "react-native-geocoding";
 import { getPixelSize } from "../utils";
 
 
-
-
+//
+import MyComponent from '../Principal/TabNavigator';
+//
 import markerImage from "../assets/marker.png";
 import backImage from "../assets/back.png";
+
+
+
 
 import {
   Back,
@@ -40,12 +41,14 @@ export default class Map extends Component {
   };
 
   async componentDidMount() {
+
+    Location.installWebGeolocationPolyfill()
     navigator.geolocation.getCurrentPosition(
       async ({ coords: { latitude, longitude } }) => {
         const response = await Geocoder.from({ latitude, longitude });
         const address = response.results[0].formatted_address;
         const location = address.substring(0, address.indexOf(","));
-
+        console.log(`=== ${address} ==`)
         this.setState({
           location,
           region: {
@@ -80,6 +83,7 @@ export default class Map extends Component {
         title: data.structured_formatting.main_text
       }
     });
+    // console.log(`=== ${this.state.region.latitude} ==`)
   };
 
   handleBack = () => {
@@ -91,7 +95,7 @@ export default class Map extends Component {
 
     return (
       <View style={{ flex: 1 }}>
-   
+        
         <MapView
           style={{ flex: 1 }}
           region={region}
@@ -99,9 +103,11 @@ export default class Map extends Component {
           loadingEnabled
           ref={ el => (this.mapView = el) } 
           >
+
           {destination && (
             <Fragment>
               <Directions
+                lineDashPattern={[0]}
                 origin={region}
                 destination={this.state.destination}
                 onReady={result => {
@@ -150,42 +156,14 @@ export default class Map extends Component {
           
           <Search onLocationSelected={this.handleLocationSelected} />
           )}
-      
+      <MyComponent style={{flex:1}}/>
       </View>
     );
   }
 }
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
-    </View>
-  );
-}
 
-function SettingsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
 
-const Tab = createBottomTabNavigator();
+//***************************************************************************************************** */
 
-function MyTabs() {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
-    </Tab.Navigator>
-  );
-}
 
-function App() {
-  return (
-    <NavigationContainer>
-      <MyTabs />
-    </NavigationContainer>
-  );
-}
+

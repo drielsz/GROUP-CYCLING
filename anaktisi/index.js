@@ -10,7 +10,7 @@ import { View,
 from 'react-native';
 import 'firebase/auth';
 import auth from '@react-native-firebase/auth'
-import firebase from '../services/sqlite/FireBase'
+
 import '@react-native-firebase/auth';
 
 
