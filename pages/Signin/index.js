@@ -7,39 +7,23 @@ import {
 import  Header from '../../components/Header'
 import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, TextInput, Platform,  Alert, } from 'react-native'
 import {useState} from "react";
-import firebase from '../../services/sqlite/FireBase';
+import firebase from '../../services/sqlite/Firebase';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Facebook from "expo-facebook";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Recover from '../../anaktisi'
-
+import Perfil from '../../Principal/Perfil'
 
 
  function Signin({navigation}) {
-
-  useEffect(() => {
-    NavigateToAuthORGroupScreen()
-  },[navigation])
-   function NavigateToAuthORGroupScreen() {
-     const {currentUser} = firebase.auth();
-     setTimeout(function () {
-       if (currentUser != null ){
-         navigation.reset({
-           index:0,
-           routes: [{name: "Signin"}]
-         })
-       } else{        
-        navigation.reset({
-          index:0,
-          routes: [{name: "Principal"}]
-        })
-      }
-   }, 1000)
-  }
+  
+ 
+  
+  
 
    const signUpFacebook = async () => {
      try {
-      await Facebook.initializeAsync ({appId: '809931109676548', appName: 'GroupCiclying'})
+      await Facebook.initializeAsync ({appId: '809931109676548', appName: 'GroupCycling'})
       const { 
             type,
             token,
@@ -64,10 +48,10 @@ import Recover from '../../anaktisi'
           alert(`Facebook Login Error: ${message}`);
         }
       };
-      // import statusCodes along with GoogleSignin
+      
 
 
-// Somewhere in your code
+
 
 
 
@@ -88,7 +72,7 @@ import Recover from '../../anaktisi'
   //     senha: ''
   // }
 
- 
+
 
   const Entrar = () => { 
     firebase.auth().signInWithEmailAndPassword(email, senha).then(() => {
@@ -104,10 +88,14 @@ import Recover from '../../anaktisi'
           Alert.alert('Erro', 'Usúario não cadastrado.')
           break;
 
+        case (email, senha == null):
+          Alert.alert('Erro', 'Campos não preenchidos')  
+          break; 
+
         case 'auth/wrong-password':
           Alert.alert('Erro', 'Erro na senha.');
           break;
-          
+
         case 'auth/invalid-email':
           Alert.alert('Erro', 'Email inválido.');
           break;
@@ -119,12 +107,38 @@ import Recover from '../../anaktisi'
     });
   }
 
+  // useEffect(() => {
+  //   NavigateToAuthORGroupScreen()
+  // },[navigation])
+
+  //  function NavigateToAuthORGroupScreen() {
+  //    const {currentUser} = firebase.auth();
+  //      if (currentUser != null ){
+  //        navigation.reset({
+  //          index:0,
+  //          routes: [{name: "Principal"}]
+  //        })
+         
+  //      } else{        
+  //       navigation.reset({
+  //         index:0,
+  //         routes: [{name: "Signin"}]
+  //       })
+  //     }
+  // }
+  const NoPermission = () => { 
+    navigation.navigate("Principal")
+}
+  
+  const Perfil = () => {
+    navigation.navigate("Perfil")
+  }
 
   const Cadastro = () => { 
       navigation.navigate("TelaCadastro")
   }
 
-  const Manteiga = () => {
+  const RecoverGO = () => {
       navigation.navigate("Recover")
   }
 
@@ -181,7 +195,7 @@ import Recover from '../../anaktisi'
 
             />
             
-            <Text  onPress={() => Manteiga()} style={styles.SText}>
+            <Text  onPress={() => RecoverGO()} style={styles.SText}>
             Esqueceu sua senha?
             </Text>
 
@@ -189,7 +203,7 @@ import Recover from '../../anaktisi'
               <LinearGradient
               start={{x: 0, y: 0}}
               end={{x: 1, y: 0}}
-              colors={['#FF9052', '#FF4E4E', ]}
+              colors={['#FF9052', '#ED5F5F', '#ED5F5F' ]}
               style={styles.buttonS}>
               <Text style={styles.Atext}>ENTRAR</Text>
               </LinearGradient>
@@ -199,8 +213,19 @@ import Recover from '../../anaktisi'
             Não tem conta? Crie uma conta
             </Text> 
 
-            <View> 
-            </View>
+     
+              <Text style={{color: '#FFFFFF', right: 190, top: 26, fontSize: 15,}} onPress={ () =>  NoPermission()}>
+                Tela Principal
+              </Text>
+      
+
+     
+        
+              <Text style={{color: '#FFFFFF', left: 190, fontSize: 15,}} onPress={ () => Perfil()}>
+                Ir para Perfil
+              </Text>
+  
+      
 
           </Container>
         </View>

@@ -9,6 +9,11 @@ import  TelaCadastro from './cadastro/cadastro';
 import Perfil from './Principal/Perfil'
 import Recover from './anaktisi/index.js'
 import Signin from './pages/Signin';
+import RedeSocial from './RedeSocial/Social';
+import SocialChat from './RedeSocial/SocialChat'
+import  LoginScreen  from './RedeSocial/LoginScreen'
+// import Kmera from './RedeSocial/Camera'
+
 
 
 const Stack = createStackNavigator();
@@ -16,7 +21,8 @@ const Stack = createStackNavigator();
 function MyStack() {
   return (
       
-    <Stack.Navigator>
+    <Stack.Navigator >
+
       <Stack.Screen name="Signin" component={Signin}
         options={{ headerShown: false }}
         />
@@ -39,15 +45,30 @@ function MyStack() {
       options={{ headerShown: false }}
       />
 
-       <Stack.Screen name= "Perfil" component={Perfil}
+      <Stack.Screen name= "Perfil" component={Perfil}
       options={{ headerShown: false }}
-        />
+      />
       
-        <Stack.Screen name="Recover" component={Recover}
-        options={{ headerShown: false }}
-        />
-        
+      <Stack.Screen name="Recover" component={Recover}
+      options={{ headerShown: false }}
+      />
+
+      <Stack.Screen name="Social" component={RedeSocial}
+      options={{headerShown: false }}
+      />
+
+      <Stack.Screen name="SocialChat" component={SocialChat}
+      options={{headerShown: false }}
+      />
+
+      {/* <Stack.Screen name="Kmera"  component={Kmera}
+      options={{ headerShown: false }}
+      /> */}
+      <Stack.Screen name="LoginScreen" component={LoginScreen}
+      options={{headerShown:false}}
+      />
     </Stack.Navigator>
+
   );
 }
 
@@ -55,9 +76,9 @@ function MyStack() {
 
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer >
       <MyStack />
-      <StatusBar style ="dark" />
+      <StatusBar style ="light" />
     </NavigationContainer>
   );
 }

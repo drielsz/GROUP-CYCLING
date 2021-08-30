@@ -13,16 +13,16 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 const Tab = createBottomTabNavigator();
 
 
-function MyTabs () {
+function MyComponent () {
     return (
 
       <Tab.Navigator
-      initialRouteName="Principal"
+      
       activeColor="#f0edf6"
       inactiveColor="#f0edf6"
       barStyle={{ backgroundColor: '#0B1A36' }}
       >
-        <Tab.Screen name="Configurações" component={Principal}
+        {/* <Tab.Screen name="Configurações" component={Principal}
         options={{
         headerShown: false,
           tabBarLabel: 'Map',
@@ -31,7 +31,8 @@ function MyTabs () {
             <Icon name="location-sharp" color={color} size={26}  />
           ),
         }}
-        />
+        /> */}
+
         <Tab.Screen name="Notificações" component={Notificacoes}
             name="Notificações"
             options={{
@@ -72,8 +73,8 @@ function MyTabs () {
 
 export default function App() {
     return (
-      <NavigationContainer>
-        <MyTabs />
+      <NavigationContainer independent={true} >
+        <MyComponent />
       </NavigationContainer>
     );
   }
