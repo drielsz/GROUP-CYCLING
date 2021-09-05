@@ -18,9 +18,6 @@ import MyComponent from '../Principal/TabNavigator';
 import markerImage from "../assets/marker.png";
 import backImage from "../assets/back.png";
 
-
-
-
 import {
   Back,
   LocationBox,
@@ -64,14 +61,15 @@ export default class Map extends Component {
         enableHighAccuracy: true,
         maximumAge: 1000
       }
-    );
+    );  
+    onChangeValue = region => {
+      this.setState({
+        region
+      })
+    }
   }
 
-  onChangeValue = region => {
-    this.setState({
-      region
-    })
-  }
+
 
   handleLocationSelected = (data, { geometry }) => {
     const {
@@ -99,8 +97,9 @@ export default class Map extends Component {
         <MapView
           style={{ flex: 1 }}
           region={this.state.region}
-          onRegionChangeComplete = {this.onChangeValue}
-          showsUserLocation={true}
+          onRegionChangeComplete={(region)=>{
+          console.log(region); this.setState(region);}}
+          showsUserLocation
           loadingEnabled
           ref={el => (this.mapView = el)}
         >
@@ -108,7 +107,7 @@ export default class Map extends Component {
             <Fragment>
               <Directions
                 lineDashPattern={[0]}
-                origin={region}
+                origin={this.state.region}
                 destination={this.state.destination}
                 onReady={result => {
                   this.setState({ duration: Math.floor(result.duration) });
@@ -133,7 +132,7 @@ export default class Map extends Component {
                 </LocationBox>
               </Marker>
 
-              <Marker coordinate={region} anchor={{ x: 0, y: 0 }}>
+              <Marker coordinate={this.state.region} anchor={{ x: 0, y: 0 }}>
                 <LocationBox>
                   <LocationTimeBox>
                     <LocationTimeText>{duration}</LocationTimeText>
@@ -144,6 +143,7 @@ export default class Map extends Component {
               </Marker>        
             </Fragment>
           )}
+
         </MapView>
 
         {destination ? (
