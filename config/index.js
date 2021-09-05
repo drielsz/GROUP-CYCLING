@@ -1,4 +1,4 @@
-import React, { Component,  Fragment} from 'react';
+import React, { Component,  Fragment, useEffect } from 'react';
 import { View, Image, Text} from 'react-native';
 import MapView, { Marker } from 'react-native-maps';    
 import Search from '../Principal/Search'
@@ -54,8 +54,8 @@ export default class Map extends Component {
             longitudeDelta: 0.0134
           }
         });
-      }, //sucesso
-      () => {}, //erro
+      }, 
+      () => {}, 
       {
         timeout: 2000,
         enableHighAccuracy: true,
@@ -91,14 +91,16 @@ export default class Map extends Component {
 
   render() {
     const { region, destination, duration, location } = this.state;
-
+    console.log(`===${this.state}===`)
     return (
       <View style={{ flex: 1 }}>
         <MapView
           style={{ flex: 1 }}
           region={this.state.region}
-          onRegionChangeComplete={(region)=>{
-          console.log(region); this.setState(region);}}
+           
+          
+          // onRegionChangeComplete={(region)=>{
+          // console.log(region); this.setState(region); console.log(`===${this.state}===`)}}          
           showsUserLocation
           loadingEnabled
           ref={el => (this.mapView = el)}
@@ -142,6 +144,7 @@ export default class Map extends Component {
                 </LocationBox>
               </Marker>        
             </Fragment>
+
           )}
 
         </MapView>
