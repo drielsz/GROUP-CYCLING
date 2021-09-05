@@ -45,6 +45,7 @@
     "expo-updates": "~0.8.1",
     "express": "^4.17.1",
     "firebase": "8.2.3",
+    "formik": "^2.2.9",
     "is-arrayish": "^0.2.1",
     "jsc-android": "^250230.2.1",
     "lottie-react-native": "4.0.2",

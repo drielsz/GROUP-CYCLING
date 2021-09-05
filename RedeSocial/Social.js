@@ -22,17 +22,21 @@ const RedeSocial =  ({navigation}) => {
         navigation.navigate("SocialChat")
     }
 
+    const SocialCam = () => { 
+      console.log(``)
+      navigation.navigate("")
+    }
     return (
       <SafeAreaView>
           <View style={styles.header}>
 
-          
+          <TouchableNativeFeedback onPress={() => SocialLogin()}>
             <Image 
             source={require('../assets/cam.png')}
             style={{width: 30, height: 30}}
             resizeMode="contain"
             />
-      
+        </TouchableNativeFeedback>  
 
 
             <Image 

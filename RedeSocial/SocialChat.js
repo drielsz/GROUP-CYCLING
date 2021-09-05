@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, KeyboardAvoidingView, SafeAreaView, Text } from 'react-native';
+import { Platform, KeyboardAvoidingView, SafeAreaView, Text,  LogBox,  } from 'react-native';
 import {GiftedChat} from 'react-native-gifted-chat'
 import Fire from '../RedeSocial/database/FireBase'
 import { useRoute } from '@react-navigation/native';
@@ -7,6 +7,7 @@ import { useRoute } from '@react-navigation/native';
 export default class SocialChat extends React.Component {
 
     constructor(props) {
+        LogBox.ignoreLogs(['Setting a timer for a long period of time'])
         super(props);
         this.state = { 
             messages: [],
@@ -16,7 +17,8 @@ export default class SocialChat extends React.Component {
     get user () {  
         return{
             _id: Fire.uid,
-            name: this.props.route.params.name,
+            name: this.props.route.params?.name,
+            
         };
          
     }
@@ -36,10 +38,12 @@ export default class SocialChat extends React.Component {
         const  chat =  <GiftedChat messages={this.state.messages} onSend = {Fire.send} user={ this.user } />
         if (Platform.OS === 'android') {
             return(
-                <KeyboardAvoidingView style={{flex: 1}} behavior="padding" keyboardVerticallOffset={30} enabled>
+                         
+                <SafeAreaView style={{flex: 1}} behavior="padding" keyboardVerticallOffset={30} enabled>
                     {chat}
-                </KeyboardAvoidingView>
-            )
+                </SafeAreaView>
+        
+            )   
         }
 
         return <SafeAreaView style={{flex:1}}>{chat}</SafeAreaView>

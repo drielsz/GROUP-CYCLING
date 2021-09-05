@@ -33,6 +33,11 @@ function MyComponent () {
         }}
         /> */}
 
+
+        {/* <Tab.Screen name= "Principal" component={Principal}
+        options={{ headerShown: false } }
+        /> */}
+
         <Tab.Screen name="Notificações" component={Notificacoes}
             name="Notificações"
             options={{

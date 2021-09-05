@@ -41,14 +41,13 @@ export default class Map extends Component {
   };
 
   async componentDidMount() {
-
     Location.installWebGeolocationPolyfill()
     navigator.geolocation.getCurrentPosition(
       async ({ coords: { latitude, longitude } }) => {
         const response = await Geocoder.from({ latitude, longitude });
         const address = response.results[0].formatted_address;
         const location = address.substring(0, address.indexOf(","));
-        console.log(`=== ${address} ==`)
+
         this.setState({
           location,
           region: {
@@ -68,14 +67,17 @@ export default class Map extends Component {
     );
   }
 
-
-
+  onChangeValue = region => {
+    this.setState({
+      region
+    })
+  }
 
   handleLocationSelected = (data, { geometry }) => {
     const {
-      location: { lat: latitude, lon: longitude }
+      location: { lat: latitude, lng: longitude }
     } = geometry;
-    
+
     this.setState({
       destination: {
         latitude: geometry.location.lat, 
@@ -83,7 +85,6 @@ export default class Map extends Component {
         title: data.structured_formatting.main_text
       }
     });
-    // console.log(`=== ${this.state.region.latitude} ==`)
   };
 
   handleBack = () => {
@@ -91,19 +92,18 @@ export default class Map extends Component {
   };
 
   render() {
-    const { region, destination, duration, location, latitude, longitude } = this.state;
+    const { region, destination, duration, location } = this.state;
 
     return (
       <View style={{ flex: 1 }}>
-        
         <MapView
           style={{ flex: 1 }}
-          region={region}
-          showsUserLocation
+          region={this.state.region}
+          onRegionChangeComplete = {this.onChangeValue}
+          showsUserLocation={true}
           loadingEnabled
-          ref={ el => (this.mapView = el) } 
-          >
-
+          ref={el => (this.mapView = el)}
+        >
           {destination && (
             <Fragment>
               <Directions
@@ -126,14 +126,14 @@ export default class Map extends Component {
               <Marker
                 coordinate={{ latitude: this.state.destination.latitude, longitude: this.state.destination.longitude }}
                 anchor={{ x: 0, y: 0 }}
-                
+                image={markerImage}
               >
-                <LocationBox>
-                  <LocationText>{this.state.destination.title}</LocationText>
+                <LocationBox>  
+                  <LocationText>{this.state.destination.title}</LocationText>                 
                 </LocationBox>
               </Marker>
 
-              <Marker coordinate={{ latitude: this.state.destination.latitude, longitude: this.state.destination.longitude }} anchor={{ x: 0, y: 0 }}>
+              <Marker coordinate={region} anchor={{ x: 0, y: 0 }}>
                 <LocationBox>
                   <LocationTimeBox>
                     <LocationTimeText>{duration}</LocationTimeText>
@@ -141,7 +141,7 @@ export default class Map extends Component {
                   </LocationTimeBox>
                   <LocationText>{location}</LocationText>
                 </LocationBox>
-              </Marker>
+              </Marker>        
             </Fragment>
           )}
         </MapView>
@@ -151,19 +151,12 @@ export default class Map extends Component {
             <Back onPress={this.handleBack}>
               <Image source={backImage} />
             </Back>
+       
           </Fragment>
         ) : (
-          
           <Search onLocationSelected={this.handleLocationSelected} />
-          )}
-      <MyComponent style={{flex:1}}/>
+        )}
       </View>
     );
   }
 }
-
-
-//***************************************************************************************************** */
-
-
-

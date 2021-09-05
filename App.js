@@ -4,8 +4,8 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Principal from './Principal/Principal';
-import  FinCadastro from './finalizado/obrigado'
-import  TelaCadastro from './cadastro/cadastro';
+import FinCadastro from './finalizado/obrigado'
+import TelaCadastro from './cadastro/cadastro';
 import Perfil from './Principal/Perfil'
 import Recover from './anaktisi/index.js'
 import Signin from './pages/Signin';

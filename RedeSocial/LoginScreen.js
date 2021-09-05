@@ -11,11 +11,14 @@ export default class LoginScreen extends React.Component {
       }
       
         continuar = () => {
+           
             this.props.navigation.navigate("SocialChat", { name: this.state.name });
+            console.log(`Login Screen Social. O nome cadastrado foi: ${this.state.name}`)
         };
 
         render() {
         return (
+            
             <View style={styles.container}>
                 <View style={styles.circle} />
                 <View style={{ marginTop: 64 }}>
