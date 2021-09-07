@@ -51,7 +51,7 @@ export const TextInput2 = styled.TextInput`
     width: 90%;
 `
 export const Buttons = styled.TouchableOpacity`
-
+   
 
 `
 

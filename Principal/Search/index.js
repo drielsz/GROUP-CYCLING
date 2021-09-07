@@ -1,8 +1,7 @@
 import React, { Component, useState} from "react";
 import { Platform,  View,  Modal, Text, Alert, Pressable, TextInput, Button } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import ReviewForm from './ReviewForms';
-import { Formik } from 'formik';
+
 
 
 
@@ -35,7 +34,7 @@ export default class Search extends Component {
         <Modal
           animationType="slide"
           transparent={true}
-          visible={modalVisible}
+          visible={this.state.modalVisible}
           onRequestClose={() => {
             Alert.alert("Modal foi fechado.");
             this.setModalVisible(!modalVisible);
@@ -64,12 +63,20 @@ export default class Search extends Component {
             </View>
           </View>
         </Modal>  
-      </View>
+      </View> 
 
+ 
       <GooglePlacesAutocomplete
-      placeholder="Marque o seu pedal"
+      placeholder={this.props.placeholder}
       placeholderTextColor="#333"
-      onPress={onLocationSelected}
+      onPress={async (value, { geometry }) => {
+        console.log(value, geometry);
+        onLocationSelected(value, { geometry });
+        await this.setModalVisible(true);
+        console.log(this.state.modalVisible)
+        Alert.alert("Opa")
+      }}
+      
       query={{
         key: "AIzaSyAV3UYYuWSpB2u2hOFL3KsR8P9XcRpgWlc",
         language: "pt-br"
@@ -91,8 +98,8 @@ export default class Search extends Component {
         styles={{
           container: {
             position: "absolute",
-            top: Platform.select({ ios: 80, android: 60 }),
-            width: "100%"
+            top: Platform.select({ ios: 80, android: this.props.vert }),
+            width: "100%",
           },
           textInputContainer: {
             flex: 1,

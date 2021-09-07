@@ -1,7 +1,7 @@
 import React from "react";
 import MapViewDirections from "react-native-maps-directions";
 
-const Directions = ({ destination, origin, onReady }) => (
+const Directions = ({ destination, origin, onReady, waypoints }) => (
   <MapViewDirections
     lineDashPattern={[0]}
     destination={destination}
@@ -10,6 +10,7 @@ const Directions = ({ destination, origin, onReady }) => (
     apikey="AIzaSyAV3UYYuWSpB2u2hOFL3KsR8P9XcRpgWlc"
     strokeWidth={3}
     strokeColor="#FF8300"
+  
   />
 );
 

@@ -1,20 +1,16 @@
 import React, { Component,  Fragment, useEffect } from 'react';
-import { View, Image, Text} from 'react-native';
+import { View, Image, Text, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';    
 import Search from '../Principal/Search'
 import Directions from '../Principal/Search/Directions'
 import * as Location from 'expo-location'
-
+import FabButton from '../pages/Signin/FabButton/FabButton'
 
 
 import Geocoder from "react-native-geocoding";
 
 import { getPixelSize } from "../utils";
 
-
-//
-import MyComponent from '../Principal/TabNavigator';
-//
 import markerImage from "../assets/marker.png";
 import backImage from "../assets/back.png";
 
@@ -94,13 +90,10 @@ export default class Map extends Component {
     console.log(`===${this.state}===`)
     return (
       <View style={{ flex: 1 }}>
+
         <MapView
           style={{ flex: 1 }}
           region={this.state.region}
-           
-          
-          // onRegionChangeComplete={(region)=>{
-          // console.log(region); this.setState(region); console.log(`===${this.state}===`)}}          
           showsUserLocation
           loadingEnabled
           ref={el => (this.mapView = el)}
@@ -110,6 +103,8 @@ export default class Map extends Component {
               <Directions
                 lineDashPattern={[0]}
                 origin={this.state.region}
+                // waypoints= {(this.state.coordinates.lenght > 2) ? this.state.coordinates.slice(1, -1): null}
+                // optimizeWaypoints={true}
                 destination={this.state.destination}
                 onReady={result => {
                   this.setState({ duration: Math.floor(result.duration) });
@@ -124,6 +119,7 @@ export default class Map extends Component {
                   });
                 }}
               />
+              
               <Marker
                 coordinate={{ latitude: this.state.destination.latitude, longitude: this.state.destination.longitude }}
                 anchor={{ x: 0, y: 0 }}
@@ -146,9 +142,9 @@ export default class Map extends Component {
             </Fragment>
 
           )}
-
+      
         </MapView>
-
+                
         {destination ? (
           <Fragment>
             <Back onPress={this.handleBack}>
@@ -157,7 +153,12 @@ export default class Map extends Component {
        
           </Fragment>
         ) : (
-          <Search onLocationSelected={this.handleLocationSelected} />
+          <>
+              <Search onLocationSelected={this.handleLocationSelected} vert={60} placeholder="Sua origem" />
+              <Search onLocationSelected={this.handleLocationSelected} vert={120} placeholder="Destino" />
+              <FabButton/>
+         </>
+
         )}
       </View>
     );

@@ -1,19 +1,17 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { 
     KeyboardView as View, 
     Container, 
     Buttons,
 } from './styles';
 import  Header from '../../components/Header'
-import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, TextInput, Platform,  Alert, } from 'react-native'
+import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, TextInput, Alert, } from 'react-native'
 import {useState} from "react";
 import firebase from '../../services/sqlite/Firebase';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Facebook from "expo-facebook";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Recover from '../../anaktisi'
-import Perfil from '../../Principal/Perfil'
-
+import FabButton from './FabButton/FabButton' 
 
  function Signin({navigation}) {
   
@@ -199,11 +197,11 @@ import Perfil from '../../Principal/Perfil'
             Esqueceu sua senha?
             </Text>
 
-            <TouchableOpacity style={{borderRadius: 15}} onPress={() => Entrar()}>
+            <TouchableOpacity style={{borderRadius: 15, bottom:140,}} onPress={() => Entrar()}>
               <LinearGradient
               start={{x: 0, y: 0}}
               end={{x: 1, y: 0}}
-              colors={['#FF9052', '#ED5F5F', '#ED5F5F' ]}
+              colors={['#FF9052', '#FF4E4E', ]}
               style={styles.buttonS}>
               <Text style={styles.Atext}>ENTRAR</Text>
               </LinearGradient>
@@ -217,16 +215,16 @@ import Perfil from '../../Principal/Perfil'
               <Text style={{color: '#FFFFFF', right: 190, top: 26, fontSize: 15,}} onPress={ () =>  NoPermission()}>
                 Tela Principal
               </Text>
-      
+     
 
      
-        
+{/*         
               <Text style={{color: '#FFFFFF', left: 190, fontSize: 15,}} onPress={ () => Perfil()}>
                 Ir para Perfil
-              </Text>
-  
+              </Text> */}
+   
       
-
+              
           </Container>
         </View>
         </SafeAreaView>
@@ -292,6 +290,7 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   buttonFace:{
+    bottom: 160,
     backgroundColor: '#3b5998',
     padding: 15,
     alignItems: 'center',
@@ -337,6 +336,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   SText: {
+    bottom: 140,
     backgroundColor: 'transparent',
     fontSize: 19,
     color: '#FF9052',
@@ -358,6 +358,7 @@ const styles = StyleSheet.create({
   },
 
   textinput: {
+    bottom: 140,
     fontSize: 18.5,
     color: "#FF9052",
     alignSelf: 'stretch',
@@ -404,6 +405,7 @@ btnTxtGoogle:{
     alignItems: 'center',
 },
 buttonGoogle:{     
+  bottom: 160,
   backgroundColor: '#FFFFFF',
   padding: 15,
   alignItems: 'center',

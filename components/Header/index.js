@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, SafeAreaView, ScrollView, View} from 'react-native';
+import { Image, StyleSheet, View} from 'react-native';
 // import { Container } from './styles';
 import Logo from '../../assets/logoxd.png';
 
@@ -10,7 +10,7 @@ function Header() {
       <Image 
         source={Logo}
         resizeMode="contain"
-        style={{ height: 360,  }}
+        style={{ height: 360, bottom: 95,  }}
       />
     </View>
     

@@ -3,11 +3,8 @@ import Map from '../config'
 import firebase from '../services/sqlite/Firebase'
 import * as React from 'react';
 
-
 const Principal = ({navigation}) => (
-      <Map>
-      
-      </Map>
+      <Map/>
 );
 
 signOutUser = async () => {

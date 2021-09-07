@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import { useState } from 'react';
 import { SafeAreaView, 
@@ -15,7 +14,7 @@ import {
     KeyboardView2, 
     PopupPassword,
     Buttons
-} from './styles2';
+} from './styles';
 import firebase from '../services/sqlite/Firebase'
 
 import { getAuth, sendEmailVerification } from "firebase/auth";
@@ -45,13 +44,10 @@ function TelaCadastro({navigation}) {
     if (([nome, email, senha, rsenha].includes(""))) setPopupPass("Os campos não podem estar vazios!");
   }
 
-    // const user = firebase.auth().currentUser();
-    //  user.sendEmailVerification(); 
 
     async function getAuth() {
         const user = firebase.auth().currentUser
         await user.sendEmailVerification();
-      console.log(`=== ${user.email} ===`)
     }
   
 
@@ -60,12 +56,16 @@ function TelaCadastro({navigation}) {
     firebase.auth().createUserWithEmailAndPassword(email, senha).then(() => {
       navigation.reset({
         index: 0,
-        routes: [{name:"FinCadastro"}]
-      })
-
+        routes: [{name:"Signin"}]
+  })
+      Alert.alert(`Olá ${ nome } `,
+      `sua conta foi cadastrada com sucesso, verifique  seu e-mail ${email} para fazer o login`,
+      [
+        {text: 'OK', style: 'destructive'},
+        ],
+        {cancelable: true}
+    ),
       getAuth()
-      // console.log(`=== ${getAuth} ===`)
-
     }).catch((e)=>{
       console.log('Recover', 'recover' + e);
       switch (e.code) {
@@ -96,24 +96,19 @@ function TelaCadastro({navigation}) {
   return (
     <SafeAreaView>
             <ScrollView>
-            <KeyboardView2>  
-            
-           
-            <Header />
-            
-
+            <KeyboardView2 >              
+            <Header style={styles.header}/>      
             <View style={styles.regform}>
-            
-     
 
-              <TextInput style={styles.textinput} 
+              <TextInput 
+                style={styles.textinput} 
                 placeholderTextColor = "#FF9052"
                 placeholder = "Nome e sobrenome:"
                 onChangeText = {(text) => {setNome(text)}}
-                onBlur = {VerificaCampos}
-                
+                onBlur = {VerificaCampos}     
               />
-              <TextInput style={styles.textinput} 
+              <TextInput 
+                style={styles.textinput} 
                 placeholderTextColor = "#FF9052"
                 placeholder = "E-mail:"
                 onChangeText = {(text) => {setUsuario(text)}}
@@ -124,7 +119,8 @@ function TelaCadastro({navigation}) {
                 autoCompleteType='email'
                 textContentType='emailAddress'
               />
-              <TextInput style={styles.textinput} 
+              <TextInput 
+                style={styles.textinput} 
                 placeholderTextColor = "#FF9052"
                 placeholder = "Senha:"
                 onChangeText = {(text) => {setSenha(text)}}
@@ -132,7 +128,8 @@ function TelaCadastro({navigation}) {
                 secureTextEntry
                 autoCapitalize='none'
               />
-              <TextInput style={styles.textinput} 
+              <TextInput 
+                style={styles.textinput} 
                 placeholderTextColor = "#FF9052"
                 placeholder = "Repita a sua senha:"
                 onChangeText = {(text) => {setRSenha(text)}}
@@ -144,15 +141,12 @@ function TelaCadastro({navigation}) {
               <PopupPassword>
                 {popupPass}
               </PopupPassword>
-
               </View>
 
-
-              <TouchableOpacity style={{borderRadius: 15}} >
+              {/* <TouchableOpacity style={{borderRadius: 15, bottom:160}} >
               <LinearGradient 
-                // Button Linear Gradient
                 colors={['#4267B2','#4267B2', '#4267B2' ]}
-                style={styles.button}>
+                style={styles.buttonface}>
                 
                 <Text style={styles.text}>Cadastrar com o Facebook</Text>
                 </LinearGradient>
@@ -162,11 +156,10 @@ function TelaCadastro({navigation}) {
                 <Text style={styles.textD}>
                   Cadastrar com o Google
                 </Text>               
-                </Buttons>
+                </Buttons> */}
 
-              <TouchableOpacity style={{borderRadius: 15}} onPress={() => Inscrever()}>
+              <TouchableOpacity style={{borderRadius: 15, bottom:120}} onPress={() => Inscrever()}>
               <LinearGradient
-              // Button Linear Gradient
               start={{x: 0, y: 0}}
               end={{x: 1, y: 0}}
               colors={['#FF9052', '#FF4E4E', ]}
@@ -187,23 +180,20 @@ export default TelaCadastro;
 
 
 const styles = StyleSheet.create({
+
     regform: {
+        bottom: 180,
         alignSelf: 'stretch',
         paddingLeft: 3,
     },
     header: {
-        fontSize: 24,
-        color: '#f5f5f5',
-        paddingBottom: 10,
-        marginBottom: 40,
-        borderBottomColor: '#FF9052',
-        borderBottomWidth: 1,
+      bottom: 500,
     },
     textinput: {
+        bottom: 420,
         color: "#f5f5f5",
         alignSelf: 'stretch',
         height: 40,
-        marginBottom: 30,
         borderBottomColor: '#FF9052',
         borderBottomWidth: 1,
     },
@@ -227,6 +217,7 @@ const styles = StyleSheet.create({
       },
     
       button: {
+        bottom: 140,
         backgroundColor: '#FFFFFF',
         padding: 15,
         alignItems: 'center',
@@ -247,7 +238,26 @@ const styles = StyleSheet.create({
         elevation: 6,
     
       },
+      buttonface: {
+        padding: 15,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 5,
+        width: 350,
+        height: 60,    
+        marginBottom: 30,
+        borderStyle: 'solid',
+        shadowColor: "#07111F",
+        shadowOffset: {
+          width: 0,
+          height: 3,
+        },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
     
+        elevation: 6,
+    
+      },
       buttonS: {
         padding: 15,
         alignItems: 'center',
@@ -323,13 +333,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         
       },
-      header: {
-      
-        width: 30,
-      height: 24,
-      
-    
-      }
+
     });
     
     
