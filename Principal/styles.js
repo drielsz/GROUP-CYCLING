@@ -1,17 +1,24 @@
 import StyleSheet from 'react-native'
 import styled from 'styled-components/native';
 
-
-
-
+export const Title = styled.Text`
+    color:  #FF8300;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    justify-content: center;
+    text-align: center;
+    margin-Top: 30px;
+`
 
 export const KeyboardView = styled.KeyboardAvoidingView`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  background-color: #0B1A36;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    background-color: #0B1A36;
+ 
   
-  `
+`
 
 export const Text = styled.Text`
     color: #f5f5f5;
@@ -19,6 +26,7 @@ export const Text = styled.Text`
     font-weight: bold;
     margin-bottom: 5px;
     align-items: center;
+
 `
 export const Button = styled.TouchableOpacity`
     color: #f5f5f5;
@@ -27,6 +35,7 @@ export const Button = styled.TouchableOpacity`
     align-items: center;
     width: 100%;
     padding: 25px;
+
 `
 export const TextButton = styled.Text`
     color: #f5f5f5;
@@ -34,12 +43,14 @@ export const TextButton = styled.Text`
     font-weight: bold;
     margin-bottom: 5px;
     align-items: center;
+
 `
 
 
 export const KeyboardView2 = styled.KeyboardAvoidingView`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  background-color: #122a57;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    background-color: #122a57;
+
   `

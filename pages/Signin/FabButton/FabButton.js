@@ -1,35 +1,37 @@
-import React, { Component } from 'react';
-import { View, StyleSheet,  Animated, TouchableWithoutFeedback, Button } from 'react-native'
-import { AntDesign, Entypo, Ionicons, Feather } from '@expo/vector-icons'
+import React, { useState } from 'react';
+import { StyleSheet,  Animated, TouchableWithoutFeedback } from 'react-native'
+import { AntDesign, Ionicons, Feather } from '@expo/vector-icons'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { useNavigation } from '@react-navigation/native';
 
-export default class FabButton extends Component {
-
-    animation = new Animated.Value(0);
+export default function FabButton() {
+    const navigation = useNavigation();
+    const [visible, setVisible] = useState(false)
+    const [animation] = useState(new Animated.Value(0))
 
     visibleMenu = () => {
-        const toValue = this.visible ? 0 : 1
 
-        Animated.spring(this.animation, {
+        const toValue = visible ? 0 : 1
+
+        Animated.spring(animation, {
             toValue,
             friction: 10,
             useNativeDriver: true,
         }).start();
 
-        this.visible = (!this.visible)
+       setVisible (!visible)
 
     }
 
     visibleAlert = () => {
         alert("CLIQUEI")
     }
-
-    render(){
-
+    
+           
         const PlusAnimation = {
             transform:[
                 {
-                    rotate: this.animation.interpolate({
+                    rotate: animation.interpolate({
                         inputRange: [0,1],
                         outputRange:["0deg", "45deg"]
                     })
@@ -39,9 +41,9 @@ export default class FabButton extends Component {
 
         const UserAnimation = {
             transform:[
-                {scale: this.animation},
+                {scale: animation},
                 {
-                    translateY: this.animation.interpolate({
+                    translateY: animation.interpolate({
                         inputRange: [0,1],
                         outputRange:[0, -100]
                     })
@@ -51,9 +53,9 @@ export default class FabButton extends Component {
 
         const SettingsAnimation = {
             transform:[
-                {scale: this.animation},
+                {scale: animation},
                 {
-                    translateY: this.animation.interpolate({
+                    translateY: animation.interpolate({
                         inputRange: [0,1],
                         outputRange:[0, -180]
                     })
@@ -62,9 +64,9 @@ export default class FabButton extends Component {
         }
         const NotificationAnimation = {
             transform:[
-                {scale: this.animation},
+                {scale: animation},
                 {
-                    translateY: this.animation.interpolate({
+                    translateY: animation.interpolate({
                         inputRange: [0,1],
                         outputRange:[0, -260]
                     })
@@ -72,37 +74,44 @@ export default class FabButton extends Component {
             ]
         }
 
+        const User = () => {
+            navigation.navigate("Perfil")
+          }
+
         return(
             <>
 
-              <TouchableWithoutFeedback onPress={this.visibleAlert}>
-                  <Animated.View style={[styles.buttonfab, styles.menuquote, SettingsAnimation]}>
+              <TouchableWithoutFeedback onPress={( ) => alert('settings')}>
+                  <Animated.View style={[styles.buttonfab, styles.MenuSettings, SettingsAnimation]}>
                       <Feather name="settings" size={20} color="#FFF"/>
                   </Animated.View>
               </TouchableWithoutFeedback>
 
-              <TouchableWithoutFeedback onPress={this.visibleMenu}>
-                  <Animated.View style={[styles.buttonfab, styles.menusub, UserAnimation]}>
+
+              <TouchableWithoutFeedback onPress={ () => navigation.navigate('Perfil')}>
+                  <Animated.View style={[styles.buttonfab, styles.MenuUser, UserAnimation]}>
                       <Feather name="user" size={20} color="#FFF" />
                   </Animated.View>
               </TouchableWithoutFeedback>
 
-              <TouchableWithoutFeedback onPress={this.visibleAlert}>
-                  <Animated.View style={[styles.buttonfab, styles.menuquote, NotificationAnimation]}>
+
+              <TouchableWithoutFeedback onPress={( ) => alert('notificação')}>
+                  <Animated.View style={[styles.buttonfab, styles.MenuNotifications, NotificationAnimation]}>
                     <Ionicons name="notifications-outline" size={20} color="#FFF" />
                   </Animated.View>
               </TouchableWithoutFeedback>
 
-              <TouchableWithoutFeedback onPress={this.visibleMenu}>
-                  <Animated.View style={[styles.buttonfab, styles.menu, PlusAnimation]}>
-                      <AntDesign name="plus" size={25} color="#FFF"/>
+
+              <TouchableWithoutFeedback onPress={visibleMenu}>
+                  <Animated.View style={[styles.buttonfab, styles.MenuPlus, PlusAnimation]}>
+                      <AntDesign name="plus" size={35} color="#FFF"/>
                   </Animated.View>
               </TouchableWithoutFeedback>
                 
        </>
         )
     }
-}
+
 
 const styles = StyleSheet.create({
     container: {
@@ -124,21 +133,32 @@ const styles = StyleSheet.create({
             height: hp(10),
         }
     },
-    menu:{
-        backgroundColor: '#00213b'
-    },
-    menusub:{
-        left: 380,
+    MenuSettings:{
+        top: 1040,
+        left: 350,
         width: wp(12),
         height: hp(6), 
         borderRadius: 300/2,
         backgroundColor: '#00213b'
     },
-    menuquote:{
-        left: 380,
+    MenuUser:{
+        top: 970,
+        left: 430,
         width: wp(12),
         height: hp(6), 
         borderRadius: 300/2,
         backgroundColor: '#00213b'
-    }
+    },
+    MenuNotifications:{
+        top: 1185,
+        left: 295,
+        width: wp(12),
+        height: hp(6), 
+        borderRadius: 300/2,
+        backgroundColor: '#00213b'
+    },
+    MenuPlus:{
+        backgroundColor: '#00213b'
+    },
 })
+

@@ -72,9 +72,8 @@ export default class Search extends Component {
       onPress={async (value, { geometry }) => {
         console.log(value, geometry);
         onLocationSelected(value, { geometry });
-        await this.setModalVisible(true);
+        this.setModalVisible(true);
         console.log(this.state.modalVisible)
-        Alert.alert("Opa")
       }}
       
       query={{

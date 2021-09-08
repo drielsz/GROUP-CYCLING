@@ -218,10 +218,10 @@ import FabButton from './FabButton/FabButton'
      
 
      
-{/*         
+       
               <Text style={{color: '#FFFFFF', left: 190, fontSize: 15,}} onPress={ () => Perfil()}>
                 Ir para Perfil
-              </Text> */}
+              </Text> 
    
       
               
