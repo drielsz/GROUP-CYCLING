@@ -54,3 +54,9 @@ export const KeyboardView2 = styled.KeyboardAvoidingView`
     background-color: #122a57;
 
   `
+
+
+export const Spacer = styled.View`
+  width: 100%;
+  height: ${(props) => props.size || '10px'};
+`

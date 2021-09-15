@@ -33,6 +33,3 @@ Image: {
 })
 
 export default Header;
-
-
-

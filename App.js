@@ -3,16 +3,17 @@ import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import Principal from './Principal/Principal';
+import {navigationRef} from './pages/Signin/navigation/navigation';
 
+import Principal from './Principal/Principal';
 import TelaCadastro from './cadastro/cadastro';
 import Perfil from './Principal/Perfil'
 import Recover from './anaktisi/index.js'
 import Signin from './pages/Signin';
 import RedeSocial from './RedeSocial/Social';
 import SocialChat from './RedeSocial/SocialChat'
-import  LoginScreen  from './RedeSocial/LoginScreen'
-// import Kmera from './RedeSocial/Camera'
+import LoginScreen  from './RedeSocial/LoginScreen'
+import Helpscreen from './pages/Signin/screenshelp/screenhelp'
 
 
 
@@ -22,6 +23,10 @@ function MyStack() {
   return (
       
     <Stack.Navigator >
+      
+     <Stack.Screen name="Helpscreen" component={Helpscreen}
+      options={{headerShown:false}}
+      />
 
       <Stack.Screen name="Signin" component={Signin}
         options={{ headerShown: false }}
@@ -63,6 +68,9 @@ function MyStack() {
       <Stack.Screen name="LoginScreen" component={LoginScreen}
       options={{headerShown:false}}
       />
+
+    
+      
     </Stack.Navigator>
 
   );
@@ -72,7 +80,7 @@ function MyStack() {
 
 export default function App() {
   return (
-    <NavigationContainer >
+    <NavigationContainer ref={navigationRef}>
       <MyStack />
       <StatusBar style ="light" />
     </NavigationContainer>

@@ -58,11 +58,6 @@ export default class Map extends Component {
         maximumAge: 1000
       }
     );  
-    onChangeValue = region => {
-      this.setState({
-        region
-      })
-    }
   }
 
 

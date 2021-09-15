@@ -3,6 +3,7 @@ import {
     KeyboardView as View, 
     Container, 
     Buttons,
+    SimpleText
 } from './styles';
 import  Header from '../../components/Header'
 import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, TextInput, Alert, } from 'react-native'
@@ -11,7 +12,6 @@ import firebase from '../../services/sqlite/Firebase';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Facebook from "expo-facebook";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import FabButton from './FabButton/FabButton' 
 
  function Signin({navigation}) {
   
@@ -47,7 +47,6 @@ import FabButton from './FabButton/FabButton'
         }
       };
       
-
 
 
 
@@ -124,7 +123,7 @@ import FabButton from './FabButton/FabButton'
   //       })
   //     }
   // }
-  const NoPermission = () => { 
+  const Principal = () => { 
     navigation.navigate("Principal")
 }
   
@@ -148,25 +147,20 @@ import FabButton from './FabButton/FabButton'
           <View style={{flex:1}}>
           <Header  style={styles.header} />
           </View>
-
           <Container>
-
           <Buttons  style={[styles.buttonFace,]} onPress={signUpFacebook}  btnType="facebook" color="#4867aa" >
             <View style={styles.iconWrapper}>
           <FontAwesome  name="facebook"style={styles.icon} size={23} color='#fff'    /> 
           </View>
           <Text style={styles.textFacebook}>Continuar com o Facebook</Text>
           </Buttons>
-
           <Buttons style={styles.buttonGoogle}>
             <View style={styles.iconWrapperG}>
           <FontAwesome name="google" style={styles.iconGoogle} size={23} color={'#FF9052'}    />
           </View>
             <Text style={styles.textG}>Continuar com o Google</Text>
           </Buttons>
-
-            <TextInput 
-                 
+            <TextInput                
                  style={styles.textinput}
                  placeholderTextColor={'#FF9052'}
                  placeholder="E-mail:"
@@ -178,9 +172,7 @@ import FabButton from './FabButton/FabButton'
                  autoCapitalize='none'
                  autoCompleteType='email'
                  textContentType='emailAddress'
-
-            />
-            
+            />            
             <TextInput
                 style={styles.SText}
                 style={styles.textinput}
@@ -190,13 +182,10 @@ import FabButton from './FabButton/FabButton'
                 onChangeText = {txtSenha => OnChangeSenha(txtSenha)}
                 autoCapitalize='none'
                 secureTextEntry
-
-            />
-            
+            />       
             <Text  onPress={() => RecoverGO()} style={styles.SText}>
             Esqueceu sua senha?
             </Text>
-
             <TouchableOpacity style={{borderRadius: 15, bottom:140,}} onPress={() => Entrar()}>
               <LinearGradient
               start={{x: 0, y: 0}}
@@ -206,25 +195,10 @@ import FabButton from './FabButton/FabButton'
               <Text style={styles.Atext}>ENTRAR</Text>
               </LinearGradient>
             </TouchableOpacity>
-
             <Text onPress={() => Cadastro()} style={styles.SText}>
             Não tem conta? Crie uma conta
-            </Text> 
-
-     
-              <Text style={{color: '#FFFFFF', right: 190, top: 26, fontSize: 15,}} onPress={ () =>  NoPermission()}>
-                Tela Principal
-              </Text>
-     
-
-     
-       
-              <Text style={{color: '#FFFFFF', left: 190, fontSize: 15,}} onPress={ () => Perfil()}>
-                Ir para Perfil
-              </Text> 
-   
-      
-              
+            </Text>    
+             <SimpleText onPress={Principal}> Ir para Principal </SimpleText>               
           </Container>
         </View>
         </SafeAreaView>
@@ -448,4 +422,3 @@ buttonTextGoogle:{
   color: '#fff',
 },
 });
-

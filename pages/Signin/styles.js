@@ -55,10 +55,14 @@ export const Buttons = styled.TouchableOpacity`
 
 `
 
-//Keyboard, Title (Login), Container, ButtonSubmit, TextButton(Entrar), Input > ORDEM DO QUE EXPORTEI NO INDEX
-//background-color: #A287f4 É A COR ATRÁS DO (TEXTBUTTON), (touchableOpacity) #ENTRAR
-//#FF8300 COR LARANJA
-//BUTTON SUBMIT = BOTÃO DE ENTRAR 
-//linear-gradient(to right, #FF9052, #FF4E4E);
-//#FF9052, #FF4E4E
-//#07111F, #172B49
+export const SimpleText = styled.Text`
+    color: #f5f5f5;
+
+
+
+`
+
+export const Spacer = styled.View`
+    width: 100%;
+    height: ${(props) => props.size || '10px'};
+`

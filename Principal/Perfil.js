@@ -1,17 +1,20 @@
 import React from 'react'
 import { SafeAreaView, ScrollView, Text, StyleSheet, View} from 'react-native';
-import { Title } from './styles'
+import { Title, Spacer } from './styles'
 import {widthPercentageToDP as wd, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { AntDesign, Entypo, Feather, Fontisto  } from '@expo/vector-icons'; 
+import { AntDesign, Entypo, Feather, FontAwesome  } from '@expo/vector-icons'; 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Action=({icon, text, screen}) =>{
+
+
+
+const Action=({icon, text, onPress}) =>{
   return(
     <>
-    <View style={styles.action} row aCenter style={{justifyContent:'space-between'}}>
-      <View row aCenter>
+    <View style={styles.action}  style={{justifyContent:'space-between'}}>
+      <View >
         <View style={styles.iconContainer} color={'#fa4248'} center>
-            <Feather name={icon} size={22} color={'#fa4248'} backgroundColor={'#fa4248'}/>
-            
+            <Feather onPress={onPress} name={icon} size={22} color={'#fa4248'} backgroundColor={'#fa4248'}/>
         </View>
         <Text style={styles.actionTitle}> {text} </Text>
         </View >
@@ -22,16 +25,16 @@ const Action=({icon, text, screen}) =>{
     </>
   )
 }
-const Whatever=({icon, text, screen}) =>{
+
+const Design=({icon, text, onPress}) =>{
   return(
     <>
-    <View style={styles.action} row aCenter style={{justifyContent:'space-between'}}>
-      <View row aCenter>
+    <View style={styles.action} style={{justifyContent:'space-between'}}>
+      <View >
         <View style={styles.iconContainer} color={'#fa4248'} center>
-            <Fontisto name={icon} size={20} color={'#fa4248'} backgroundColor={'#fa4248'}/>
-            
+            <FontAwesome onPress={onPress} name={icon} size={22} color={'#fa4248'} backgroundColor={'#fa4248'}/>    
         </View>
-        <Text style={styles.actionTitle}> {text} </Text>
+        <Text  onPress={onPress} style={styles.actionTitle}> {text} </Text>
         </View >
         <View  style={[styles.iconContainer, styles.chevronstyle]}>
         <Entypo name="chevron-right" size={24} color="black" />
@@ -40,7 +43,15 @@ const Whatever=({icon, text, screen}) =>{
     </>
   )
 }
-export default function Perfil ({navigation}) {
+
+
+export default function Perfil ({route, navigation}) {
+
+  const NavigationSocial = () => {
+    navigation.navigate("LoginScreen")
+  }
+  
+
   return(
     <SafeAreaView style={styles.container}>
       
@@ -49,26 +60,38 @@ export default function Perfil ({navigation}) {
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{paddingBottom: 29}}
       >
-        <View style={styles.profileInfos} row aCenter>
+        <View style={styles.profileInfos} >
           <View style={[styles.image]}/>
           <View style={styles.nameSection}>
-            <Text style={styles.textname} username>Adriel Laurentino</Text>
-            <Text style={styles.textemail} body>noreply@gmail.com</Text>
+            <Text style={styles.textname} username>Ronaldinho Gaucho</Text>
+            <Text style={styles.textemail} body>ronaldinhogaucho@gmail.com</Text>
           </View>
         </View>
+
         <View style={styles.action}>
-          <Action text='Edit Profile'   icon={ 'edit-3'  }  />
-          <Action text="Wish list "     icon={  'heart'  }  />
-          <Action text='Atividade Semanal' icon={ 'activity'  }  />
-          <Action text='Treinos Salvos' icon={ 'star'  }  />
-          <Action text='Conquistas'     icon={ 'award'  }  />
-          <Action text='Treinos curtidos' icon={ 'thumbs-up'  }  />
-          <Action text='Marketplace' icon={'shopping-bag'} />
-          <Action text='Sair' icon={ 'log-out'  }  />
+          <Spacer size='40px'/>
+          <Action text='Edit Profile' icon={ 'edit-3' } />
+          <Spacer size='40px'/>
+          <Design text="Wish list " icon={ 'heart' } />
+          <Spacer size='40px'/>
+          <Action text='Atividade Semanal' icon={ 'activity' } />
+          <Spacer size='40px'/>
+          <Action text='Treinos Salvos' icon={ 'star' } />
+          <Spacer size='40px'/>
+          <Action text='Conquistas' icon={ 'award' } />
+          <Spacer size='40px'/>
+          <Action text='Treinos curtidos' icon={ 'thumbs-up'  } />
+          <Spacer size='40px'/>
+          <Action text='Marketplace' icon={ 'shopping-bag' } />
+          <Spacer size='40px'/>
+          <Action text='Settings' icon={ 'settings' } />
+          <Spacer size='40px'/>
+          <Action onPress={NavigationSocial} text='Social' icon={ 'navigation' } />
+          <Spacer size='40px'/>
+          <Action text='Sair' icon={ 'log-out' } />
         </View>
        
       </ScrollView>
-      
     </SafeAreaView>
   )
 }
@@ -96,13 +119,13 @@ const styles = StyleSheet.create({
     marginLeft: 40,
   },
   textname:{
-    left: wd(47),
+    left: wd(42),
     bottom: hp(10),
     fontWeight: 'bold',
     fontSize: 20
   },
   textemail:{
-    left: wd(47),
+    left: wd(40),
     bottom: hp(10),
     color: 'gray',
   },

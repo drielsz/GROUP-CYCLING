@@ -7,8 +7,10 @@ import { SafeAreaView,
   View, 
   TextInput,
   TouchableOpacity,
-  Alert
+  Alert,
 } from 'react-native'
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { 
     KeyboardView2, 
@@ -25,7 +27,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 function TelaCadastro({navigation}) {
 
   const [nome, setNome] = useState("");
-  const [email, setUsuario] = useState("");
+  const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [rsenha, setRSenha] = useState("");
 
@@ -45,15 +47,38 @@ function TelaCadastro({navigation}) {
   }
 
 
-    async function getAuth() {
-        const user = firebase.auth().currentUser
-        await user.sendEmailVerification();
-    }
+  async function getAuth() {
+      const user = firebase.auth().currentUser
+      await user.sendEmailVerification();
+  }
   
 
-  
+
+  const setfunction = () => {
+    try{
+      AsyncStorage.setItem('email', email)
+    } catch(e){
+      alert(e)
+    }
+  }
+
+
+ const  getfunction = async() => {
+    try{
+     const valor = await AsyncStorage.getItem('email')
+      setEmail(valor)
+      console.log(`O email foi: ${valor}`)
+      
+    } catch(e){
+      alert(e)
+      console.log(` erro: ${e}`)
+    }
+  }
+
   const Inscrever = () => { 
     firebase.auth().createUserWithEmailAndPassword(email, senha).then(() => {
+      navigation.navigate("Perfil", {name: valor})
+   
       navigation.reset({
         index: 0,
         routes: [{name:"Signin"}]
@@ -93,6 +118,8 @@ function TelaCadastro({navigation}) {
     });
   }
 
+
+  
   return (
     <SafeAreaView>
             <ScrollView>
@@ -105,14 +132,16 @@ function TelaCadastro({navigation}) {
                 placeholderTextColor = "#FF9052"
                 placeholder = "Nome e sobrenome:"
                 onChangeText = {(text) => {setNome(text)}}
+                value={nome}
                 onBlur = {VerificaCampos}     
               />
               <TextInput 
                 style={styles.textinput} 
                 placeholderTextColor = "#FF9052"
                 placeholder = "E-mail:"
-                onChangeText = {(text) => {setUsuario(text)}}
-                onBlur = {VerificaCampos}
+                onChangeText = {(text) => {setEmail(text)}}
+                value={email}
+                onBlur={VerificaCampos}
                 autoCorrect ={false}
                 keyboardType='email-address'
                 autoCapitalize='none'
@@ -157,7 +186,6 @@ function TelaCadastro({navigation}) {
                   Cadastrar com o Google
                 </Text>               
                 </Buttons> */}
-
               <TouchableOpacity style={{borderRadius: 15, bottom:120}} onPress={() => Inscrever()}>
               <LinearGradient
               start={{x: 0, y: 0}}

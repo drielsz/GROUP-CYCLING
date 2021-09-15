@@ -9,21 +9,17 @@ export default function FabButton() {
     const [visible, setVisible] = useState(false)
     const [animation] = useState(new Animated.Value(0))
 
-    visibleMenu = () => {
-
+    const visibleMenu = () => {
         const toValue = visible ? 0 : 1
-
         Animated.spring(animation, {
             toValue,
             friction: 10,
             useNativeDriver: true,
         }).start();
-
        setVisible (!visible)
-
     }
 
-    visibleAlert = () => {
+   const visibleAlert = () => {
         alert("CLIQUEI")
     }
     
@@ -51,7 +47,7 @@ export default function FabButton() {
             ]
         }
 
-        const SettingsAnimation = {
+        const infoAnimation = {
             transform:[
                 {scale: animation},
                 {
@@ -80,12 +76,13 @@ export default function FabButton() {
 
         return(
             <>
-
-              <TouchableWithoutFeedback onPress={( ) => alert('settings')}>
-                  <Animated.View style={[styles.buttonfab, styles.MenuSettings, SettingsAnimation]}>
-                      <Feather name="settings" size={20} color="#FFF"/>
+                  <TouchableWithoutFeedback onPress={() => navigation.navigate("Helpscreen")}>
+                  <Animated.View style={[styles.buttonfab, styles.infoSettings, infoAnimation]}>
+                    <Feather name="info" size={20} color="#FFF" />
                   </Animated.View>
               </TouchableWithoutFeedback>
+
+            
 
 
               <TouchableWithoutFeedback onPress={ () => navigation.navigate('Perfil')}>
@@ -95,9 +92,9 @@ export default function FabButton() {
               </TouchableWithoutFeedback>
 
 
-              <TouchableWithoutFeedback onPress={( ) => alert('notificação')}>
+              <TouchableWithoutFeedback onPress={( ) => alert('settings')}>
                   <Animated.View style={[styles.buttonfab, styles.MenuNotifications, NotificationAnimation]}>
-                    <Ionicons name="notifications-outline" size={20} color="#FFF" />
+                  <Ionicons name="notifications-outline" size={20} color="#FFF" />
                   </Animated.View>
               </TouchableWithoutFeedback>
 
@@ -133,7 +130,7 @@ const styles = StyleSheet.create({
             height: hp(10),
         }
     },
-    MenuSettings:{
+    infoSettings:{
         top: 1040,
         left: 350,
         width: wp(12),
