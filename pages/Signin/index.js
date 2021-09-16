@@ -177,6 +177,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
                 style={styles.SText}
                 style={styles.textinput}
                 placeholderTextColor={'#FF9052'}
+                label="Senha"
                 placeholder="Senha:"
                 value={senha}
                 onChangeText = {txtSenha => OnChangeSenha(txtSenha)}

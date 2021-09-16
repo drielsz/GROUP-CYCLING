@@ -8,6 +8,7 @@
       "dark50": "#242424",
       "success": "#06D6A0",
       "danger": "#FF5050",
-      "light": "#ffffff"
+      "light": "#ffffff",
+      "blue": "#0091E2"
     }
   }

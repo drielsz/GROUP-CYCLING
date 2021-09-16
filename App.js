@@ -3,7 +3,7 @@ import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import {navigationRef} from './pages/Signin/navigation/navigation';
+
 
 import Principal from './Principal/Principal';
 import TelaCadastro from './cadastro/cadastro';

@@ -1,7 +1,11 @@
 import React, {useState}from 'react';
-import tour01 from '../../../assets/illustration-1.png';
-import tour02 from '../../../assets/illustration-2.png';
-import tour03 from '../../../assets/illustration-3.png';
+import tour01 from '../../../assets/UNDRAWIMAGE.png';
+import tour02 from '../../../assets/UNDRAWIMAGE02.png';
+import tour03 from '../../../assets/UNDRAWIMAGE03.png';
+import tour04 from '../../../assets/UNDRAWIMAGE04.png';
+import tour05 from '../../../assets/background.png'
+
+
 import {
     Title, 
     ImageBackground as Box,
@@ -27,34 +31,61 @@ import {
 } from 'react-native-animated-pagination-dots';
 
 
-export default function Helpscreen () {
+export default function Helpscreen ({navigation}) {
     
-
+    function goLogin () {
+        navigation.navigate('Signin')
+    }
 
     const HelpTour = [
         {   
             key:'1',
-            bg: 'dark', 
-            button: 'primary',
-            title: 'Chega de Rotina sem a motivação.',
-            desc: 'Pensamos em um serviço perfeito para você construir hábitos se divertindo e ganhando dinheiro.',
+            bg: 'blue', 
+            button: 'blue',
+            title: `PEDALE. 
+VIVA.
+SONHE E 
+ALCANCE!
+            `,
+            
+            desc: 'Pensamos em um serviço perfeito para você construir novas amizades, se divertir e praticar exercício físico.',
             picture: tour01
         },
         {
             key:'2',
-            bg: 'primary', 
-            button: 'dark',
-            title: 'Construa hábitos por bem (ou mal).',
-            desc: 'Pensamos em um serviço perfeito para você construir hábitos se divertindo e ganhando dinheiro.',
+            bg: 'blue', 
+            button: 'blue',
+            title: `MAPA
+
+ 
+  
+            `,
+            desc: 'O Mapa tem uma função que permite o usúario cadastrar e localizar pedais próximos a sua localização.',
             picture: tour02
         },
         {
             key:'3',
-            bg: 'dark', 
-            button: 'primary',
-            title: 'Ganhe dinheiro com  seus amigos.',
-            desc: 'Pensamos em um serviço perfeito para você construir hábitos se divertindo e ganhando dinheiro.',
+            bg: 'blue', 
+            button: 'blue',
+            title: `PERFIL
+            
+            
+
+            `,
+            desc: 'O usúario pode modificar o seu perfil, colocando dados que serão exibidos aos demais utilizadores do APP.',
             picture: tour03
+        },
+        {
+            key:'4',
+            bg: 'blue', 
+            button: 'blue',
+            title: `NET
+CYCLING
+
+
+            `,
+            desc: 'O NET Cycling é uma rede social online de compartilhamento de fotos e vídeos entre seus usuários.',
+            picture: tour04
         },
     ];
 
@@ -66,21 +97,23 @@ export default function Helpscreen () {
    
 
     return(
-        <Box background={HelpTour[actualScreen]?.bg} hasPadding justify='center'>
-                <Spacer size="40px"/>
-          <Title big color="light">
+        <Box source={tour05} hasPadding >
+                <Spacer size="20px"/>
+          <Title color="light">
               {HelpTour[actualScreen]?.title}
           </Title>
                 <Spacer size='50px' />
           <Cover source={HelpTour[actualScreen]?.picture} width="100%" height="300px"/>
                 <Spacer size='50px' />
-          <Text align hasPadding> 
+          <Text color="light"align hasPadding> 
           {HelpTour[actualScreen]?.desc}
           </Text>
           <Spacer size='50px'/>
-          <Button background={HelpTour[actualScreen]?.button} block 
+          <Box align="center">
+              <Spacer size='50px' />
+          <Button  justify="center" radius size="92px" background={HelpTour[actualScreen]?.button} block 
          onPress={() => {
-             if (actualScreen === 2) {
+             if (actualScreen === 3) {
                  goLogin();
                
                 } else {
@@ -90,9 +123,10 @@ export default function Helpscreen () {
     
           }}
           >
-          {actualScreen === 2 ? 'Explorar Desafio' : 'Próximo'}
-          </Button>     
-          <Text style={{ left: 150, top:130}}align color="light"> @groupcyclingapp</Text> 
+          {actualScreen === 3 ? 'Explorar Desafio' : 'Próximo'}
+          </Button>   
+          </Box>
+          <Text style={{left: 150}}color="light">@groupcyclingapp</Text> 
 
           <ScalingDot
             data={HelpTour}

@@ -6,7 +6,9 @@ export const Spacer = styled.View`
   height: ${(props) => props.size || '10px'};
 `
 
-export const ImageBackground = styled.View`
+export const ImageBackground = styled.ImageBackground.attrs({
+    
+})`
     flex:1;
     flex-wrap: ${(props) => props.wrap || 'nowrap'};
     flex-direction: ${(props) => (props.row ? 'row' : 'column')};
@@ -32,7 +34,7 @@ export const ImageBackground = styled.View`
 `
 export const Title = styled(TitlePaper)`
     color: ${(props) => props.theme[props.color || 'dark']};
-    font-size: ${(props) => (props.small ? '22px' : props.big ? '50px' : '30px')};
+    font-size: ${(props) => (props.small ? '22px' : props.big ? '50px' : '35px')};
     line-height:${(props) => (props.small ? '22px' : props.big ? '50px' : '30px')};
     padding: ${(props) => (props.hasPadding ? '20px' : '0px')};
     letter-spacing: -2px;
@@ -40,6 +42,7 @@ export const Title = styled(TitlePaper)`
     text-align: ${(props) => props.align || 'left'};
     transform: ${(props) => (props.scale ? `scale(${props.scale})` : '')};
     font-family: 'Ubuntu_700Bold';
+    text-decoration: ${(props) => (props.decoration ? 'underline' : 'none')};
 `
 
 export const Cover = styled.ImageBackground.attrs( props =>({
@@ -69,14 +72,20 @@ export const Text = styled(TextPaper)`
 
 export const Button = styled(ButtonPaper).attrs(props =>({
     mode: props.mode || 'contained',
-    uppercase: false,
-    width: props.block ? '100%' : 'auto',
+    uppercase: true,
+    width: props.block ? '50%' : 'auto',
     color: props.theme[props.background] || props.background || props.theme.primary,
     labelStyle:{
         color: props.theme[props.TextColor || 'light'],
         letterSpacing: props.letter ? 1 : 0,
         fontFamily: 'Ubuntu_400Regular',
-
+    
     }
-}))`
+}))
+`
+height: ${(props) => props.size || '10px'};
+border-radius: ${(props) => (props.radius ? '21px' : '0px')};
+justify-content: ${(props) => (props.justify || 'center')};
+align-items: ${(props) => props.align || 'center'};
+
 `;
