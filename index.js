@@ -4,8 +4,11 @@ import { registerRootComponent } from 'expo';
 
 import { ThemeProvider } from 'styled-components/native'
 import { Provider as PaperProvider } from 'react-native-paper'
-import App from './App.js'
+import App from './App'
 import { colors } from './assets/theme.json'
+
+
+
 
 import {
     useFonts,
@@ -44,7 +47,7 @@ const App01 = () => {
     return(
         <ThemeProvider theme={colors}>
             <PaperProvider>
-                <Helpscreen/>
+                <App/>
             </PaperProvider>
         </ThemeProvider>
     )

@@ -3,6 +3,7 @@ import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
+import { createAppContainer } from 'react-navigation';
 
 
 import Principal from './Principal/Principal';
@@ -22,15 +23,17 @@ const Stack = createStackNavigator();
 function MyStack() {
   return (
       
-    <Stack.Navigator >
+    <Stack.Navigator initialRouteName="Helpscreen">
       
+      <Stack.Screen name="Signin" component={Signin}
+        options={{ headerShown: false }}
+      />
+
+
      <Stack.Screen name="Helpscreen" component={Helpscreen}
       options={{headerShown:false}}
       />
 
-      <Stack.Screen name="Signin" component={Signin}
-        options={{ headerShown: false }}
-        />
 
       <Stack.Screen name="Principal" component={Principal}  
       options={{ headerShown: false }}
@@ -62,9 +65,6 @@ function MyStack() {
       options={{headerShown: false }}
       />
 
-      {/* <Stack.Screen name="Kmera"  component={Kmera}
-      options={{ headerShown: false }}
-      /> */}
       <Stack.Screen name="LoginScreen" component={LoginScreen}
       options={{headerShown:false}}
       />
@@ -80,9 +80,9 @@ function MyStack() {
 
 export default function App() {
   return (
-    <NavigationContainer ref={navigationRef}>
-      <MyStack />
-      <StatusBar style ="light" />
+    <NavigationContainer >
+       <MyStack />
+      <StatusBar style="light" />
     </NavigationContainer>
   );
 }

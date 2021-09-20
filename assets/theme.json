@@ -9,6 +9,7 @@
       "success": "#06D6A0",
       "danger": "#FF5050",
       "light": "#ffffff",
-      "blue": "#0091E2"
+      "blue": "#0091E2",
+      "dot": "#347af0"
     }
   }

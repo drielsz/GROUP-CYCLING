@@ -66,7 +66,7 @@ export const Text = styled(TextPaper)`
     opacity: ${(props) => props.opacity  || 0.7 }
     text-align: ${(props) => (props.align ? 'center' : 'left')};
     text-decoration: ${(props) => (props.decoration ? 'underline' : 'none')};
-
+        
 
 `;
 

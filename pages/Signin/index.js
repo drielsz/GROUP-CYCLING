@@ -36,7 +36,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
             const response = await fetch(
               `https://graph.facebook.com/me?fields=id,name,picture.type(large),email&access_token=${token}`
             );
-            // console.log((await response.json()).name);
+            console.log((await response.json()).name);
             const data = await response.json();
             setUser(data);
           } else {
@@ -52,7 +52,6 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
 
-  const [user, setUser] = useState('');
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
 
@@ -71,14 +70,18 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
 
-  const Entrar = () => { 
-    firebase.auth().signInWithEmailAndPassword(email, senha).then(() => {
+
+  const Entrar = () => {   
+
+    firebase.auth().signInWithEmailAndPassword(email, senha).then((user) => {
+
+      console.log(`===${user.user}===`)
       navigation.reset({
         index: 0,
         routes: [{name:"Principal"}] 
   })
     }).catch((e)=>{
-      console.log('Recover', 'recover' + e);
+      // console.log('Recover', 'recover' + e);
       switch (e.code) {
         
         case 'auth/user-not-found':
@@ -360,25 +363,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 3,
-},
+  },
 iconWrapper:{
     width: 30,
     justifyContent: 'center',
     alignItems: 'center',
     right: 150,
     top: 10,
-},
+  },
 icon:{
     fontWeight: 'bold',
     color: '#fff',
     top: 4,
 
-},
+  },
 btnTxtGoogle:{
     flex:1,
     justifyContent: 'center',
     alignItems: 'center',
-},
+  },
 buttonGoogle:{     
   bottom: 160,
   backgroundColor: '#FFFFFF',
@@ -399,7 +402,7 @@ buttonGoogle:{
   shadowRadius: 4.65,
 
   elevation: 6,
-},
+  },
 iconWrapperG:{
   width: 30,
   justifyContent: 'center',
@@ -407,13 +410,13 @@ iconWrapperG:{
   right: 150,
   top: 9,
   color: '#FF9052',
-},
+  },
 iconGoogle:{
   fontWeight: 'bold',
   color: '#FF9052',
   top: 6,
 
-},
+  },
 buttonTextGoogle:{    
   
   justifyContent: 'center',
@@ -421,5 +424,5 @@ buttonTextGoogle:{
   fontSize: 18,
   fontWeight: 'bold',
   color: '#fff',
-},
+  },
 });

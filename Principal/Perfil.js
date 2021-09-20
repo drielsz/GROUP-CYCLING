@@ -1,12 +1,12 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { SafeAreaView, ScrollView, Text, StyleSheet, View} from 'react-native';
 import { Title, Spacer } from './styles'
 import {widthPercentageToDP as wd, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { AntDesign, Entypo, Feather, FontAwesome  } from '@expo/vector-icons'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// undefined i not an object, firebase/auth
 
-
-
+// Oxente, mas nem está sendo utilizado '*'
 
 const Action=({icon, text, onPress}) =>{
   return(
@@ -47,6 +47,12 @@ const Design=({icon, text, onPress}) =>{
 
 export default function Perfil ({route, navigation}) {
 
+
+  const [currentuser, setCurrentUser] = useState()
+
+
+
+
   const NavigationSocial = () => {
     navigation.navigate("LoginScreen")
   }
@@ -63,8 +69,9 @@ export default function Perfil ({route, navigation}) {
         <View style={styles.profileInfos} >
           <View style={[styles.image]}/>
           <View style={styles.nameSection}>
-            <Text style={styles.textname} username>Ronaldinho Gaucho</Text>
+            <Text style={styles.textname} name>ronaldinhogaucho</Text>
             <Text style={styles.textemail} body>ronaldinhogaucho@gmail.com</Text>
+            
           </View>
         </View>
 
