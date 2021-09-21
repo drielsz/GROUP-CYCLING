@@ -29,22 +29,29 @@ Geocoder.init("AIzaSyAV3UYYuWSpB2u2hOFL3KsR8P9XcRpgWlc");
 import firebase from 'firebase';
 
 export default class Map extends Component {
-  state = {
-    region: null,
-    destination: null,
-    duration: null,
-    location: null
+  constructor(props) {
+    super(props);
+    this.state = {
+      region: null,
+      destination: null,
+      duration: null,
+      location: null
+    };
   };
+  
 
   async componentDidMount() {
+    console.log('Entrando no componentDidMount');
+
     Location.installWebGeolocationPolyfill()
-    navigator.geolocation.getCurrentPosition(
+    await navigator.geolocation.getCurrentPosition(
       async ({ coords: { latitude, longitude } }) => {
         const response = await Geocoder.from({ latitude, longitude });
-        const address = response.results[0].formatted_address;
-        const location = address.substring(0, address.indexOf(","));
+        const address = await response.results[0].formatted_address;
+        const location = await address.substring(0, address.indexOf(","));
 
-        this.setState({
+        console.log('Entrei no componentDidMount')
+        await this.setState({
           location,
           region: {
             latitude,
@@ -64,7 +71,6 @@ export default class Map extends Component {
   }
 
 
-
   handleLocationSelected = (data, { geometry }) => {
     const {
       location: { lat: latitude, lng: longitude }
@@ -79,11 +85,25 @@ export default class Map extends Component {
     });
   };
 
-  handleBack = () => {
-    this.setState({ destination: null });
+  getMyLocation = (data, { geometry }) => {
+    this.setState({
+      region: {
+        latitude: geometry.location.lat,
+        longitude: geometry.location.lng,
+        latitudeDelta: 0.0134,
+        longitudeDelta: 0.0134
+      }
+    });
+
+    console.log(`Peguei a posição inicial`);
   };
 
-  render() {
+  handleBack = () => {
+    this.setState({ destination: null, region: null });
+  };
+
+  render () {
+    
     const { region, destination, duration, location } = this.state;
     console.log(`===${this.state}===`)
 
@@ -152,7 +172,8 @@ export default class Map extends Component {
           )}
       
         </MapView>
-                
+        
+      
         {destination ? (
           <Fragment>
             <Back onPress={this.handleBack}>
@@ -162,9 +183,14 @@ export default class Map extends Component {
           </Fragment>
         ) : (
           <>
-              <Search onLocationSelected={this.handleLocationSelected} vert={60} placeholder="Sua origem" />
-              <Search onLocationSelected={this.handleLocationSelected} vert={120} placeholder="Destino" />
-              <FabButton/>
+              <Search onLocationSelected={this.getMyLocation} vert={60} fine={true} placeholder="Origem" /> 
+              {region ? (
+                <>
+                <Search onLocationSelected={this.handleLocationSelected} vert={120} fine={false} placeholder="Destino" />
+                <FabButton/>
+                </>
+                ) : (<></>)}
+              
          </>
 
         )}
