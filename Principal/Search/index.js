@@ -2,9 +2,6 @@ import React, { Component, useState} from "react";
 import { Platform,  View,  Modal, Text, Alert, Pressable, TextInput, Button } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
-
-
-
 export default class Search extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +16,6 @@ export default class Search extends Component {
     
   }
 
-
   render() {
 
     const { searchFocused } = this.state;
@@ -28,38 +24,28 @@ export default class Search extends Component {
 
 
   return (
-<>
-      <View>
-        
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal foi fechado.");
-            this.setModalVisible(!modalVisible);
-          }}
-           >
+    <>
+    <View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={this.state.modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal foi fechado.");
+          this.setModalVisible(!modalVisible);
+        }}
+        >
           <View style={{flex: 1,justifyContent: "center",alignItems: "center", marginTop: 22}}>
-
             <View  style={{ width: 420, height: 600, margin: 20, backgroundColor: "#0B1A36", borderRadius: 20, padding: 35, alignItems: "center",
             shadowColor: "#000", shadowOffset: { width: 0,height: 2}, shadowOpacity: 0.25, shadowRadius: 4, elevation: 5}}>
-              
-
-
               <Text style={{  fontWeight: "bold", color:'#FFF', marginBottom: 15, textAlign: "center"  }}>Configure o seu pedal</Text>
               <TextInput
               placeholder="KKKKKKKKKKKKKKK"
               placeholderTextColor="#FFFF"
-              
               />
- 
-            
-
               <Pressable onPress={() => this.setModalVisible(false)}  style={{ top: 470, }}>
                 <Text style={{ color: "#FFF", fontWeight: "bold", textAlign: "center", }}>Ocultar Modal</Text>
               </Pressable>
-
             </View>
           </View>
         </Modal>  
@@ -72,7 +58,11 @@ export default class Search extends Component {
       onPress={async (value, { geometry }) => {
         console.log(value, geometry);
         onLocationSelected(value, { geometry });
-        this.setModalVisible(true);
+        if( this.props.fine === true ) {
+          console.log(`fine ${this.props.fine}`)
+          this.setModalVisible(true);
+        }
+        
         console.log(this.state.modalVisible)
       }}
       
@@ -150,8 +140,8 @@ export default class Search extends Component {
             height: 70
           },
         }}
-        />
-</>  
+        />  
+    </>  
     );    
   };
 };

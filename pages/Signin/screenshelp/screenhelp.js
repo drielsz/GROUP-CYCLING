@@ -34,8 +34,6 @@ import {
 } from 'react-native'; 
 
 
-
-
 function HelpScreen({ navigation }) {
 
     
