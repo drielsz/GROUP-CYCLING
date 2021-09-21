@@ -72,6 +72,8 @@ export const Text = styled(TextPaper)`
 
 export const Button = styled(ButtonPaper).attrs(props =>({
     mode: props.mode || 'contained',
+    position: "absolute",
+    bottom: 50,
     uppercase: true,
     width: props.block ? '50%' : 'auto',
     color: props.theme[props.background] || props.background || props.theme.primary,
