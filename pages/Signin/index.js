@@ -13,13 +13,10 @@ import { LinearGradient } from 'expo-linear-gradient';
 import * as Facebook from "expo-facebook";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
- function Signin({navigation}) {
+function Signin({navigation}) {
   
  
-  
-  
-
-   const signUpFacebook = async () => {
+  const signUpFacebook = async () => {
      try {
       await Facebook.initializeAsync ({appId: '809931109676548', appName: 'GroupCycling'})
       const { 
@@ -71,11 +68,12 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
 
-  const Entrar = () => {   
+  const Entrar = async () => {   
 
-    firebase.auth().signInWithEmailAndPassword(email, senha).then((user) => {
+    await firebase.auth().signInWithEmailAndPassword(email, senha).then((user) => {
+      
+      console.log(user.user.email)
 
-      console.log(`===${user.user}===`)
       navigation.reset({
         index: 0,
         routes: [{name:"Principal"}] 

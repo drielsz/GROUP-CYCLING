@@ -61,6 +61,7 @@ function HelpScreen({ navigation }) {
           <Spacer size='50px' />
       <Button  justify="center" radius size="92px" background={HelpTour[actualScreen]?.button} block 
         onPress={() => {
+        alert('Clicado')
            if (actualScreen === 3) {
               goLogin();
               
@@ -159,6 +160,10 @@ CYCLING
         )
     }
 
+    const DoneButton = () => {
+        navigation.navigate('Signin')
+    }
+
     function renderScreens ({item}){
         return(
         
@@ -176,9 +181,10 @@ CYCLING
       <Spacer size='50px'/>
       <Box align="center">
           <Spacer size='50px' />
-      <Button  justify="center" radius size="92px" background={item.button} block 
+      <Button justify="center" radius size="70px" background={item.button} block 
         onPress={() => {
-           if (actualScreen === 3) {
+            alert('Clicado')
+            if (actualScreen === 3) {
               goLogin();
               
               } else {
@@ -219,6 +225,7 @@ CYCLING
     renderItem={renderScreens}
     data={HelpTour}
     dotStyle={{bottom: 25,backgroundColor: '#fff'}}
+    renderDoneButton={DoneButton}
     activeDotStyle={{bottom: 25,backgroundColor: '#00A3FF',}}
     renderNextButton={NextButton}  
         

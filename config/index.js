@@ -25,6 +25,9 @@ import {
 
 Geocoder.init("AIzaSyAV3UYYuWSpB2u2hOFL3KsR8P9XcRpgWlc");
 
+// Get Credentials User
+import firebase from 'firebase';
+
 export default class Map extends Component {
   state = {
     region: null,
@@ -83,6 +86,16 @@ export default class Map extends Component {
   render() {
     const { region, destination, duration, location } = this.state;
     console.log(`===${this.state}===`)
+
+    const data = firebase.auth().currentUser; // Dados do usuário
+
+    const user_data = {
+      "name": data.displayName,
+      "email": data.email,
+    }
+
+    console.log(user_data) // TODO: Captar as informações do usuário e mostrar no perfil
+
     return (
       <View style={{ flex: 1 }}>
 

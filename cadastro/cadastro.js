@@ -62,8 +62,8 @@ function TelaCadastro({navigation}) {
     }
   }
 
-
- const  getfunction = async() => {
+  /*
+  const  getfunction = async() => {
     try{
      const valor = await AsyncStorage.getItem('email')
       setEmail(valor)
@@ -74,11 +74,13 @@ function TelaCadastro({navigation}) {
       console.log(` erro: ${e}`)
     }
   }
+  */
 
   const Inscrever = () => { 
-    firebase.auth().createUserWithEmailAndPassword(email, senha).then(() => {
-      navigation.navigate("Perfil", {name: valor})
-   
+    firebase.auth().createUserWithEmailAndPassword(email, senha).then((user) => {
+      user.user.updateProfile({ displayName: nome }); // Atualizando os dados do usuário cadastrado
+      console.log(`<User(Email=${user.user.email})>`);
+
       navigation.reset({
         index: 0,
         routes: [{name:"Signin"}]
