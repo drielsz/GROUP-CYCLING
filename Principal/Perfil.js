@@ -4,6 +4,8 @@ import { Title, Spacer } from './styles'
 import {widthPercentageToDP as wd, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { AntDesign, Entypo, Feather, FontAwesome  } from '@expo/vector-icons'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import firebase from 'firebase'
+
 // undefined i not an object, firebase/auth
 
 // Oxente, mas nem está sendo utilizado '*'
@@ -57,10 +59,22 @@ export default function Perfil ({route, navigation}) {
     navigation.navigate("LoginScreen")
   }
   
+  const DataEmail = firebase.auth().currentUser.email
+
+
+  const data = firebase.auth().currentUser;
+
+
+  const user_data = {
+    "name": data.displayName,
+    "email": data.email,
+  }
 
   return(
     <SafeAreaView style={styles.container}>
       
+
+
       <Title>Account</Title>
       <ScrollView
       showsVerticalScrollIndicator={false}
@@ -69,8 +83,8 @@ export default function Perfil ({route, navigation}) {
         <View style={styles.profileInfos} >
           <View style={[styles.image]}/>
           <View style={styles.nameSection}>
-            <Text style={styles.textname} name>ronaldinhogaucho</Text>
-            <Text style={styles.textemail} body>ronaldinhogaucho@gmail.com</Text>
+            <Text style={styles.textname} name>{data.displayName}</Text>
+            <Text style={styles.textemail} body>{DataEmail}</Text>
             
           </View>
         </View>

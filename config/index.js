@@ -1,11 +1,10 @@
-import React, { Component,  Fragment, useEffect } from 'react';
-import { View, Image, Text, StyleSheet } from 'react-native';
+import React, { Component,  Fragment } from 'react';
+import { View, Image } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';    
 import Search from '../Principal/Search'
 import Directions from '../Principal/Search/Directions'
 import * as Location from 'expo-location'
 import FabButton from '../pages/Signin/FabButton/FabButton'
-
 
 import Geocoder from "react-native-geocoding";
 
@@ -25,8 +24,6 @@ import {
 
 Geocoder.init("AIzaSyAV3UYYuWSpB2u2hOFL3KsR8P9XcRpgWlc");
 
-// Get Credentials User
-import firebase from 'firebase';
 
 export default class Map extends Component {
   constructor(props) {
@@ -40,18 +37,16 @@ export default class Map extends Component {
   };
   
 
-  async componentDidMount() {
-    console.log('Entrando no componentDidMount');
-
+ componentDidMount() {
     Location.installWebGeolocationPolyfill()
-    await navigator.geolocation.getCurrentPosition(
-      async ({ coords: { latitude, longitude } }) => {
-        const response = await Geocoder.from({ latitude, longitude });
-        const address = await response.results[0].formatted_address;
-        const location = await address.substring(0, address.indexOf(","));
+     navigator.geolocation.getCurrentPosition(
+        ({ coords: { latitude, longitude } }) => {
+        const response =  Geocoder.from({ latitude, longitude });
+        const address =  response.results[0].formatted_address;
+        const location =  address.substring(0, address.indexOf(","));
 
-        console.log('Entrei no componentDidMount')
-        await this.setState({
+       
+         this.setState({
           location,
           region: {
             latitude,
@@ -83,6 +78,8 @@ export default class Map extends Component {
         title: data.structured_formatting.main_text
       }
     });
+
+
   };
 
   getMyLocation = (data, { geometry }) => {
@@ -90,12 +87,13 @@ export default class Map extends Component {
       region: {
         latitude: geometry.location.lat,
         longitude: geometry.location.lng,
+        title: data.structured_formatting.main_text,
         latitudeDelta: 0.0134,
         longitudeDelta: 0.0134
       }
     });
 
-    console.log(`Peguei a posição inicial`);
+   
   };
 
   handleBack = () => {
@@ -105,16 +103,7 @@ export default class Map extends Component {
   render () {
     
     const { region, destination, duration, location } = this.state;
-    console.log(`===${this.state}===`)
 
-    const data = firebase.auth().currentUser; // Dados do usuário
-
-    const user_data = {
-      "name": data.displayName,
-      "email": data.email,
-    }
-
-    console.log(user_data) // TODO: Captar as informações do usuário e mostrar no perfil
 
     return (
       <View style={{ flex: 1 }}>
@@ -183,12 +172,13 @@ export default class Map extends Component {
           </Fragment>
         ) : (
           <>
-              <Search onLocationSelected={this.getMyLocation} vert={60} fine={true} placeholder="Origem" /> 
+              <Search onLocationSelected={this.getMyLocation} vert={60} fine={false} placeholder="Origem" /> 
               {region ? (
-                <>
-                <Search onLocationSelected={this.handleLocationSelected} vert={120} fine={false} placeholder="Destino" />
-                <FabButton/>
-                </>
+                <><>
+                  <Search onLocationSelected={this.handleLocationSelected} vert={120} fine={true} placeholder="Destino" />
+                </><>
+                    <FabButton />
+                  </></>
                 ) : (<></>)}
               
          </>

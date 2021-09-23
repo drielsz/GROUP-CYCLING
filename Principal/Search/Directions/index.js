@@ -9,9 +9,11 @@ const Directions = ({ destination, origin, onReady, waypoints }) => (
     onReady={onReady}
     apikey="AIzaSyAV3UYYuWSpB2u2hOFL3KsR8P9XcRpgWlc"
     strokeWidth={3}
-    strokeColor="#FF8300"
-  
-  />
+    strokeColor="#0091E2"
+    precision='high'
+    mode='BICYCLING'
+    language='pt-br'
+    />
 );
 
 export default Directions;

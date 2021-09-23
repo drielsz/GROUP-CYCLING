@@ -1,5 +1,5 @@
 import React, { Component, useState} from "react";
-import { Platform,  View,  Modal, Text, Alert, Pressable, TextInput, Button } from "react-native";
+import { Platform,  View,  Modal, Text, Alert, TextInput, Button } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 export default class Search extends Component {
@@ -25,13 +25,13 @@ export default class Search extends Component {
 
   return (
     <>
+
     <View>
       <Modal
         animationType="slide"
         transparent={true}
         visible={this.state.modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal foi fechado.");
           this.setModalVisible(!modalVisible);
         }}
         >
@@ -39,13 +39,34 @@ export default class Search extends Component {
             <View  style={{ width: 420, height: 600, margin: 20, backgroundColor: "#0B1A36", borderRadius: 20, padding: 35, alignItems: "center",
             shadowColor: "#000", shadowOffset: { width: 0,height: 2}, shadowOpacity: 0.25, shadowRadius: 4, elevation: 5}}>
               <Text style={{  fontWeight: "bold", color:'#FFF', marginBottom: 15, textAlign: "center"  }}>Configure o seu pedal</Text>
+
+          <>
               <TextInput
-              placeholder="KKKKKKKKKKKKKKK"
+              placeholder="Tipo de rota:"
               placeholderTextColor="#FFFF"
               />
-              <Pressable onPress={() => this.setModalVisible(false)}  style={{ top: 470, }}>
-                <Text style={{ color: "#FFF", fontWeight: "bold", textAlign: "center", }}>Ocultar Modal</Text>
-              </Pressable>
+              <TextInput
+              placeholder="Tipo de bike:"
+              placeholderTextColor="#FFFF"
+              />
+              <TextInput
+              placeholder="Intensidade de treino:"
+              placeholderTextColor="#FFFF"
+              />
+              <TextInput
+              placeholder="Estilo de encontro:"
+              placeholderTextColor="#FFFF"
+              />
+          </>
+
+              <Button 
+              style={{ top: 500, color: 'gray' }}
+              styleDisabled={{color: 'red'}}
+              onPress={() => this.setModalVisible(false)}  
+              title="CONFIRMAR"   
+              > 
+              </Button>
+
             </View>
           </View>
         </Modal>  
@@ -56,14 +77,15 @@ export default class Search extends Component {
       placeholder={this.props.placeholder}
       placeholderTextColor="#333"
       onPress={async (value, { geometry }) => {
-        console.log(value, geometry);
         onLocationSelected(value, { geometry });
-        if( this.props.fine === true ) {
-          console.log(`fine ${this.props.fine}`)
-          this.setModalVisible(true);
-        }
+        if ( this.props.vert >= 61  ) {
+          return(
+          this.setModalVisible(true)
+          )}
         
-        console.log(this.state.modalVisible)
+
+        console.log(`OnlocationSelected: ${this.props.onLocationSelected}`)  
+        
       }}
       
       query={{
