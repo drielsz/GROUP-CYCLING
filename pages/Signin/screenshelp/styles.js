@@ -32,6 +32,7 @@ export const ImageBackground = styled.ImageBackground.attrs({
     background: ${(props) => 
         props.theme[props.background] || props.background || 'transparent'}
 `
+
 export const Title = styled(TitlePaper)`
     color: ${(props) => props.theme[props.color || 'dark']};
     font-size: ${(props) => (props.small ? '22px' : props.big ? '50px' : '35px')};
@@ -72,10 +73,8 @@ export const Text = styled(TextPaper)`
 
 export const Button = styled(ButtonPaper).attrs(props =>({
     mode: props.mode || 'contained',
-    position: "absolute",
-    bottom: 50,
     uppercase: true,
-    width: props.block ? '50%' : 'auto',
+    width: props.block ? '60%' : 'auto',
     color: props.theme[props.background] || props.background || props.theme.primary,
     labelStyle:{
         color: props.theme[props.TextColor || 'light'],
@@ -86,7 +85,7 @@ export const Button = styled(ButtonPaper).attrs(props =>({
 }))
 `
 height: ${(props) => props.size || '10px'};
-border-radius: ${(props) => (props.radius ? '21px' : '0px')};
+border-radius: ${(props) => (props.radius ? '30px' : '0px')};
 justify-content: ${(props) => (props.justify || 'center')};
 align-items: ${(props) => props.align || 'center'};
 
