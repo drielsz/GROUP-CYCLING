@@ -1,10 +1,12 @@
 import React, { Component,  Fragment } from 'react';
-import { View, Image } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';    
+import { View, Image, Text, Button} from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
 import Search from '../Principal/Search'
 import Directions from '../Principal/Search/Directions'
 import * as Location from 'expo-location'
 import FabButton from '../pages/Signin/FabButton/FabButton'
+import ModalComponent from'../Principal/Modalsx'
+
 
 import Geocoder from "react-native-geocoding";
 
@@ -35,7 +37,7 @@ export default class Map extends Component {
       location: null
     };
   };
-  
+
 
  componentDidMount() {
     Location.installWebGeolocationPolyfill()
@@ -45,7 +47,7 @@ export default class Map extends Component {
         const address =  response.results[0].formatted_address;
         const location =  address.substring(0, address.indexOf(","));
 
-       
+
          this.setState({
           location,
           region: {
@@ -55,14 +57,14 @@ export default class Map extends Component {
             longitudeDelta: 0.0134
           }
         });
-      }, 
-      () => {}, 
+      },
+      () => {},
       {
         timeout: 2000,
         enableHighAccuracy: true,
         maximumAge: 1000
       }
-    );  
+    );
   }
 
 
@@ -73,7 +75,7 @@ export default class Map extends Component {
 
     this.setState({
       destination: {
-        latitude: geometry.location.lat, 
+        latitude: geometry.location.lat,
         longitude: geometry.location.lng,
         title: data.structured_formatting.main_text
       }
@@ -93,7 +95,7 @@ export default class Map extends Component {
       }
     });
 
-   
+
   };
 
   handleBack = () => {
@@ -101,7 +103,7 @@ export default class Map extends Component {
   };
 
   render () {
-    
+
     const { region, destination, duration, location } = this.state;
 
 
@@ -136,14 +138,14 @@ export default class Map extends Component {
                   });
                 }}
               />
-              
+
               <Marker
                 coordinate={{ latitude: this.state.destination.latitude, longitude: this.state.destination.longitude }}
                 anchor={{ x: 0, y: 0 }}
                 image={markerImage}
               >
-                <LocationBox>  
-                  <LocationText>{this.state.destination.title}</LocationText>                 
+                <LocationBox>
+                  <LocationText>{this.state.destination.title}</LocationText>
                 </LocationBox>
               </Marker>
 
@@ -155,32 +157,33 @@ export default class Map extends Component {
                   </LocationTimeBox>
                   <LocationText>{location}</LocationText>
                 </LocationBox>
-              </Marker>        
+              </Marker>
             </Fragment>
 
           )}
-      
+
         </MapView>
-        
-      
+
+
         {destination ? (
-          <Fragment>
-            <Back onPress={this.handleBack}>
+           <Fragment>
+              <Back onPress={this.handleBack}>
               <Image source={backImage} />
-            </Back>
-       
-          </Fragment>
+              </Back>
+              <Button title='Exiba o modal' color='red'/>
+            </Fragment>
         ) : (
           <>
-              <Search onLocationSelected={this.getMyLocation} vert={60} fine={false} placeholder="Origem" /> 
+              <FabButton />
+              <Search onLocationSelected={this.getMyLocation} vert={60} fine={false} placeholder="Origem" />
               {region ? (
                 <><>
                   <Search onLocationSelected={this.handleLocationSelected} vert={120} fine={true} placeholder="Destino" />
                 </><>
-                    <FabButton />
-                  </></>
-                ) : (<></>)}
-              
+
+                </></>
+                ) : (<View></View>)}
+
          </>
 
         )}

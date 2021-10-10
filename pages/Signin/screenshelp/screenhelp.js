@@ -14,19 +14,19 @@ import tour04 from '../../../assets/UNDRAWIMAGE04.png';
 import tour05 from '../../../assets/UNDRAWTEST.png'
 import tour06 from '../../../assets/UNDRAWS2.png'
 
- 
+
 
 const HelpScreen = ({navigation}) => {
 
   const HelpTour = [
-    {   
+    {
         _id: '1',
-        bg: 'blue', 
+        bg: 'blue',
         button: 'blue',
         title: `  VIVA.
-  SONHE E 
-  ALCANCE! 
-  
+  SONHE E
+  ALCANCE!
+
 
         `,
         titledesc: `  PEDALE.`,
@@ -35,7 +35,7 @@ const HelpScreen = ({navigation}) => {
     },
     {
         _id: '2',
-        bg: 'blue', 
+        bg: 'blue',
         button: 'blue',
         titlemap: `  MAPA`,
         text: 'O Mapa tem uma função que permite o usúario cadastrar e localizar pedais próximos a sua localização.',
@@ -43,7 +43,7 @@ const HelpScreen = ({navigation}) => {
     },
     {
         _id: '3',
-        bg: 'blue', 
+        bg: 'blue',
         button: 'blue',
         titleperfil: `  PERFIL `,
         text: 'O usúario pode modificar o seu perfil, colocando dados que serão exibidos aos demais utilizadores do APP.',
@@ -51,7 +51,7 @@ const HelpScreen = ({navigation}) => {
     },
     {
         _id: '4',
-        bg: 'blue', 
+        bg: 'blue',
         button: 'blue',
         titlenet: `  NET
   CYCLING`,
@@ -69,33 +69,39 @@ const HelpScreen = ({navigation}) => {
   });
 
      useEffect(() => {
-        if(!viewableItems[0] || currentPage === viewableItems[0].index) 
+        if(!viewableItems[0] || currentPage === viewableItems[0].index)
             return;
         setCurrentPage(viewableItems[0].index)
 
 
   }, [viewableItems])
 
+  const GoToLogin = async () => {
+    await AsyncStorage.setItem('@tour', 'Y');
+    navigation.navigate('Signin')
+  };
 
   const handleNext = () => {
-    if(currentPage == HelpTour.length-1)
+    if(currentPage == HelpTour.length-1) {
+      GoToLogin();
       return;
-    
+    };
+
     flatlistRef.current.scrollToIndex({
       animated: true,
       index: currentPage +1,
 
-     })
+     });
   }
 
   const handleBack = () => {
     if(currentPage == HelpTour.length-1)
       return;
-    
+
     flatlistRef.current.scrollToIndex({
       animated: true,
       index: currentPage -1,
-      
+
      })
   }
 
@@ -110,15 +116,14 @@ const HelpScreen = ({navigation}) => {
     return(
     <TouchableOpacity onPress={handleSkip}  style={{ alignSelf : "flex-end", top: 40, right: 20}}>
       <Text  style={{opacity: currentPage == HelpTour.length-1 ? 0 : 1}} color='light'>Pular</Text>
-    </TouchableOpacity>   
+    </TouchableOpacity>
     )
   }
 
   const renderBottomSection = () => {
     return(
-      <Box >
+      <Box>
 
-   
         <View style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
@@ -128,10 +133,10 @@ const HelpScreen = ({navigation}) => {
         }}>
           {/*DOTS*/}
           <Box align='center' justify='center' row>
-            
+
             {
               [...Array(HelpTour.length)].map((_, index)=>(
-                <View 
+                <View
                 key={index}
                 style={{
                   bottom: 105,
@@ -141,81 +146,16 @@ const HelpScreen = ({navigation}) => {
                   backgroundColor: index===currentPage?
                   COLORS.BLUE
                   : COLORS.white + '50',
-                  marginRight: 10, 
+                  marginRight: 10,
                   alignItems:'center',
-                  justifyContent: 'center',           
+                  justifyContent: 'center',
                 }}/>
               ))
             }
-            
+
             <Text color='light' style={{position: 'absolute', bottom: 75}}>@groupcyclingapp</Text>
 
-            </Box>
-            
-          {/*Next*/}
-          {/* SHOW THE NEXT PAGE BUTTON WHEN ALL PAGES ARE COMPLETED THIS GUYS IS SHOWN.*/}
-          {
-            currentPage != HelpTour.length-1 ? (
-              <>
-              <TouchableOpacity
-              disabled={false}           
-              onPress={handleNext}
-              contentStyle={{width: 357, height: 91}}
-              style={{    
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                bottom: 200,
-                right: 400,
-                width: 357,
-                paddingHorizontal: SIZES.base * 2,
-                height: 92,
-                borderRadius: 30,
-                backgroundColor: COLORS.BLUE     
-              }}>
-                <Text color='light'>PRÓXIMO</Text>
-                <AntDesignIcons name="right" 
-                style={{fontSize: 18, color: COLORS.white, opacity: 0.3, marginLeft: SIZES.base}}/>
-                <AntDesignIcons
-                name="right"
-                style={{fontSize: 25, color: COLORS.white, marginLeft: -14}}
-                />
-              </TouchableOpacity>
-              
-              </>
-            ) : (
-              {/* THIS GUYS */},
-
-              <>
-
-            <TouchableOpacity               
-              onPress={handleNext}
-              contentStyle={{width: 357, height: 91}}
-              style={{ 
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',   
-                bottom:200,
-                right: 400,
-                width: 357,
-                paddingHorizontal: SIZES.base * 2,
-                height: 92,
-                borderRadius: 30,
-                backgroundColor: COLORS.BLUE
-              }}>
-                <Text color='light'>EXPLORAR</Text>
-                <AntDesignIcons name="right" 
-                style={{fontSize: 18, color: COLORS.white, opacity: 0.3, marginLeft: SIZES.base}}/>
-                <AntDesignIcons
-                name="right"
-                style={{fontSize: 25, color: COLORS.white, marginLeft: -14}}
-                />
-              </TouchableOpacity>
-
-            </>
-
-            )
-          }
+          </Box>
         </View>
       </Box>
     )
@@ -226,15 +166,14 @@ const HelpScreen = ({navigation}) => {
   const renderFlatlistItem = ({item}) => {
     return(
       <View style={{width: SIZES.width}}>
-
-          <Spacer>   
+          <Spacer>
           <Title color='blue'>{item.titledesc}</Title>
           <Title style={{bottom: 5}} color='light'>{item.title}</Title>
           </Spacer>
 
           <Title style={{top:30}} color='blue'>{item.titlemap}</Title>
-          <Title style={{bottom: 25}} color='blue'>{item.titleperfil}</Title>  
-          <Title style={{bottom: 80}} color='blue'>{item.titlenet}</Title>  
+          <Title style={{bottom: 25}} color='blue'>{item.titleperfil}</Title>
+          <Title style={{bottom: 80}} color='blue'>{item.titlenet}</Title>
 
           <Cover style={{top: 10}} source={item.image} resizeMode='contain' width="100%" height="300px"  />
 
@@ -243,24 +182,46 @@ const HelpScreen = ({navigation}) => {
           <Text style={{top: 133}} align color='light'>{item.textnet}</Text>
           <Text style={{top: 123}} align color='light'>{item.textinit} </Text>
           </View>
-          
-          <Cover style={{bottom: 490}} source={item.img} resizeMode='contain' width="100%" height="300px" />                        
+
+          <Cover style={{bottom: 490}} source={item.img} resizeMode='contain' width="100%" height="300px" />
       </View>
   )
 }
 
-  const GoToLogin = async () => {
-    await AsyncStorage.setItem('@tour', 'Y');
-    navigation.navigate('Signin')
-  };
-
-
-
+  const ButtonNext = () => {
+    return (
+      <>
+        <TouchableOpacity
+          disabled={false}
+          onPress={handleNext}
+          contentStyle={{width: 357, height: 91}}
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            bottom: 150,
+            marginHorizontal: 'auto',
+            alignSelf: 'center',
+            width: 357,
+            paddingHorizontal: SIZES.base * 2,
+            height: 92,
+            borderRadius: 30,
+            backgroundColor: COLORS.BLUE
+          }}>
+            <Text color='light'>{ currentPage != HelpTour.length - 1 ? "PRÓXIMO" : "EXPLORAR" }</Text>
+            <AntDesignIcons name="right"
+            style={{fontSize: 18, color: COLORS.white, opacity: 0.3, marginLeft: SIZES.base}}/>
+            <AntDesignIcons
+            name="right"
+            style={{fontSize: 25, color: COLORS.white, marginLeft: -14}}
+            />
+        </TouchableOpacity>
+      </>
+    )
+  }
 
   return(
     <Box source={background}>
-
-<>
         <StatusBar barStyle='dark-content' backgroundColor={background}/>
 
         {/* TOP, BACK AND SKIP BUTTON*/}
@@ -282,12 +243,9 @@ const HelpScreen = ({navigation}) => {
         extraData={SIZES.width}
         />
 
+        <ButtonNext />
         {/*Get started button*/}
         { renderBottomSection() }
-
-        {/* Just the instagram */}
-       
-</>
 
    </Box>
   )

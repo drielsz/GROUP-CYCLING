@@ -2,17 +2,15 @@ import React from 'react';
 import { StyleSheet, Button, View, Modal } from 'react-native';
 
 function ModalComponent ( ) {
-    const [ModalVisible, setModalVisible] = React.useState(false);
 
+    const [ModalVisible, setModalVisible] = React.useState(false);
     return(
         <View>
             <Modal
             transparent={true}
             visible={ModalVisible}
             animationType="fade"
-            
             >
-
             </Modal>
         </View>
     )
