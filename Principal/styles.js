@@ -1,6 +1,7 @@
 import StyleSheet from 'react-native'
 import styled from 'styled-components/native';
 
+
 export const Title = styled.Text`
     color:  #FF8300;
     font-size: 30px;
@@ -16,8 +17,8 @@ export const KeyboardView = styled.KeyboardAvoidingView`
     align-items: center;
     justify-content: center;
     background-color: #0B1A36;
- 
-  
+
+
 `
 
 export const Text = styled.Text`

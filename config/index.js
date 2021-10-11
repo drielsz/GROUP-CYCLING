@@ -170,10 +170,11 @@ export default class Map extends Component {
               <Back onPress={this.handleBack}>
               <Image source={backImage} />
               </Back>
-              <Button title='Exiba o modal' color='red'/>
+              <ModalComponent/>
             </Fragment>
         ) : (
           <>
+
               <FabButton />
               <Search onLocationSelected={this.getMyLocation} vert={60} fine={false} placeholder="Origem" />
               {region ? (
