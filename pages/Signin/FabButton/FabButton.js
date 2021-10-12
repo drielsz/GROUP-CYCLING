@@ -3,6 +3,7 @@ import { StyleSheet,  Animated, TouchableWithoutFeedback } from 'react-native'
 import { AntDesign, Ionicons, Feather } from '@expo/vector-icons'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function FabButton() {
     const navigation = useNavigation();
@@ -74,11 +75,22 @@ export default function FabButton() {
             navigation.navigate("Perfil")
           }
 
+        const Logout = async() => {
+            try {
+                await AsyncStorage.removeItem("token").then(
+                    navigation.navigate('Signin')
+                );
+            } catch (error) {
+                console.log(error);
+            }
+            
+        }
+
         return(
             <>
-                  <TouchableWithoutFeedback onPress={() => navigation.navigate("Helpscreen")}>
+             <TouchableWithoutFeedback onPress={Logout}>
                   <Animated.View style={[styles.buttonfab, styles.infoSettings, infoAnimation]}>
-                    <Feather name="info" size={20} color="#FFF" />
+                    <Feather name="log-out" size={20} color="#FFF" />
                   </Animated.View>
               </TouchableWithoutFeedback>
 

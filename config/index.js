@@ -1,16 +1,15 @@
 import React, { Component,  Fragment } from 'react';
 import { View, Image, Text, Button} from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import Search from '../Principal/Search'
-import Directions from '../Principal/Search/Directions'
-import * as Location from 'expo-location'
-import FabButton from '../pages/Signin/FabButton/FabButton'
-import ModalComponent from'../Principal/Modalsx'
-
-
+import * as Location from 'expo-location';
 import Geocoder from "react-native-geocoding";
 
+import Search from '../Principal/Search';
 import { getPixelSize } from "../utils";
+import ModalComponent from'../Principal/Modalsx';
+import Directions from '../Principal/Search/Directions';
+import FabButton from '../pages/Signin/FabButton/FabButton';
+import MapPointers from '../components/MapPointers';
 
 import markerImage from "../assets/marker.png";
 import backImage from "../assets/back.png";
@@ -25,7 +24,6 @@ import {
 } from "./styles";
 
 Geocoder.init("AIzaSyAV3UYYuWSpB2u2hOFL3KsR8P9XcRpgWlc");
-
 
 export default class Map extends Component {
   constructor(props) {
@@ -117,6 +115,7 @@ export default class Map extends Component {
           loadingEnabled
           ref={el => (this.mapView = el)}
         >
+          <MapPointers />
           {destination && (
             <Fragment>
               <Directions
@@ -170,7 +169,7 @@ export default class Map extends Component {
               <Back onPress={this.handleBack}>
               <Image source={backImage} />
               </Back>
-              <ModalComponent/>
+              <ModalComponent pointers={{ origin: this.state.region, destination: this.state.destination}}/>
             </Fragment>
         ) : (
           <>

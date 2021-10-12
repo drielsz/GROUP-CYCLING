@@ -2,17 +2,31 @@ import React, { useState } from 'react';
 import { StyleSheet, Button, View, Modal, Text, TextInput, SafeAreaView, KeyboardAvoidingView} from 'react-native';
 import {useForm, Controller} from 'react-hook-form'
 import {Picker} from '@react-native-picker/picker';
+import { api } from '../services/sqlite/axios.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-
-function ModalComponent ( ) {
+function ModalComponent (props) {
     const {
         control,
         handleSubmit,
         formState: {errors, isValid}
       } = useForm({mode: 'onBlur'})
 
-    const onSubmit = (data) => console.log(data);
+    const createEvent = async (data) => {
+        const response = await api.post("events/create", {
+            title: data.name,
+            description: selectedIntensify,
+            origin: props.pointers.origin,
+            destination: props.pointers.destination
+        }, { headers: { "X-access-token": await AsyncStorage.getItem("token") } });
+
+        console.log(response.data);
+    };
+
+    const onSubmit = (data) => {
+        createEvent(data);
+
+    };
 
     const { register, formState: { error } } = useForm();
 
@@ -28,6 +42,7 @@ function ModalComponent ( ) {
         ]
     );
 
+    console.log(props.pointers)
     return(
         <View style={styles.container}>
 
@@ -89,7 +104,6 @@ function ModalComponent ( ) {
             <Button color='#0091E2' title='submit' onPress={handleSubmit(onSubmit)} disabled={!isValid}/>
             </SafeAreaView>
             </KeyboardAvoidingView>
-
 
             </Modal>
         </View>

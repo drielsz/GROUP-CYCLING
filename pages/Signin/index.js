@@ -12,6 +12,8 @@ import firebase from '../../services/sqlite/Firebase';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Facebook from "expo-facebook";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { api } from '../../services/sqlite/axios.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Signin({navigation}) {
   
@@ -66,7 +68,26 @@ function Signin({navigation}) {
   // }
 
 
+  const SignIn = async () => {
 
+    const response = await api.post("login", {
+      email: email,
+      password: senha
+    }).then(async (response) => {
+      // Guardando o token de acesso localmente
+      await AsyncStorage.setItem("token", response.data.token);
+
+      // Enviando o usuário para a tela principal e resentando o index
+      navigation.reset({
+        index: 0,
+        routes: [{name:"Principal"}] 
+      })
+    }).catch((error) => {
+      console.log(error.response.data);
+    });
+      // console.log(response.data);
+   
+  };
 
   const Entrar = async () => {   
 
@@ -124,6 +145,7 @@ function Signin({navigation}) {
   //       })
   //     }
   // }
+  
   const Principal = () => { 
     navigation.navigate("Principal")
 }
@@ -199,7 +221,12 @@ function Signin({navigation}) {
             </TouchableOpacity>
             <Text onPress={() => Cadastro()} style={styles.SText}>
             Não tem conta? Crie uma conta
-            </Text>    
+            </Text>  
+
+            <Buttons  style={[styles.buttonFace]} color="#4867aa" onPress={() => SignIn()}>
+            <Text>AXIOS</Text>
+            </Buttons>
+
              <SimpleText onPress={Principal}> Ir para Principal </SimpleText>               
           </Container>
         </View>

@@ -1,10 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {View, StatusBar, TouchableOpacity, FlatList, Button as Buttons, Pressable} from 'react-native'
 import {Title, ImageBackground as Box, Text, Spacer, Cover, Button} from './styles'
 import { COLORS, SIZES } from './theme'
 import AntDesignIcons from 'react-native-vector-icons/AntDesign'
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import background from '../../../assets/background.png'
 import tour01 from '../../../assets/UNDRAWIMAGE.png';
@@ -75,6 +74,16 @@ const HelpScreen = ({navigation}) => {
 
 
   }, [viewableItems])
+
+  const verifyTokenExists = async() => {
+    if( await AsyncStorage.getItem("token") ) {
+      
+      navigation.reset({
+        index: 0,
+        routes: [{name:"Principal"}] 
+      })
+    }
+  }
 
   const GoToLogin = async () => {
     await AsyncStorage.setItem('@tour', 'Y');
@@ -220,6 +229,7 @@ const HelpScreen = ({navigation}) => {
     )
   }
 
+  verifyTokenExists();
   return(
     <Box source={background}>
         <StatusBar barStyle='dark-content' backgroundColor={background}/>

@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const api = axios.create({
-  baseURL: 'https://groupciclying-default-rtdb.firebaseio.com/',
+export const api = axios.create({
+  baseURL: 'https://group-cycling-backend.herokuapp.com/',
 });
 
-export default api;
