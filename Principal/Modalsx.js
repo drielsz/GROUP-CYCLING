@@ -5,6 +5,7 @@ import {Picker} from '@react-native-picker/picker';
 import { api } from '../services/sqlite/axios.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
 function ModalComponent (props) {
     const {
         control,
@@ -15,7 +16,7 @@ function ModalComponent (props) {
     const createEvent = async (data) => {
         const response = await api.post("events/create", {
             title: data.name,
-            description: selectedIntensify,
+            description: `Intensidade do treino: ${selectedIntensify}; Tipo de estrada: ${selectedtyperote}; Tipo de bike: ${selectedbike} e estilo de encontro: ${selectedmeeting}.`,
             origin: props.pointers.origin,
             destination: props.pointers.destination
         }, { headers: { "X-access-token": await AsyncStorage.getItem("token") } });
@@ -24,28 +25,54 @@ function ModalComponent (props) {
     };
 
     const onSubmit = (data) => {
+        
         createEvent(data);
-
+        setModalVisible(false)
     };
 
     const { register, formState: { error } } = useForm();
 
     const [ModalVisible, setModalVisible] = React.useState(true);
     const [text, setText] = React.useState('');
+    const [estilo, setEstilo] = React.useState('')
     const [password, setPassword] = React.useState('')
     const [selectedIntensify, setSelectedIntensify] = useState('Suave')
     const [intensify] = useState(
         [
-            'Suave',    
-            'Moderado',
-            'Intenso',
+        'Suave',    
+        'Moderado',
+        'Intenso',
         ]
     );
 
+    const [selectedtyperote, setSelectedTyperote] = useState('Estrada')
+    const [type] = useState(
+        [
+        'Estrada', 
+        'Trilha',
+        'Ambas'
+        ]
+    )
+
+    const [selectedbike, setSelectedbike] = useState('Speed')
+    const [bike] = useState(
+        [
+        'Speed',
+        'Mountain Bike',
+        'Ambas'
+        ]
+    )
+
+    const [selectedmeeting, setSelectedmeeting] = useState('Passeio')
+    const [meeting] = useState(
+        [
+            'Passeio',
+            'Treino'
+        ]
+    )
     console.log(props.pointers)
     return(
         <View style={styles.container}>
-
             <Modal
             transparent={true}
             visible={ModalVisible}
@@ -60,32 +87,54 @@ function ModalComponent (props) {
                     render={({field: {onChange, value, onBlur}}) => (
                     <>      
 
-                            <TextInput
-                            style={{marginVertical: 20, marginLeft: 5}}
-                            value={value}
-                            onBlur={onBlur}
-                            placeholder='Tipo de rota:'
-                            placeholderTextColor='black'
-                            onChangeText={value => onChange(value)}
-                            />
-                            <TextInput
-                            style={{marginVertical: 20, marginLeft: 5}}
-                            value={value}
-                            onBlur={onBlur}
-                            placeholder='Tipo de bike:'
-                            placeholderTextColor='black'
-                            onChangeText={value => onChange(value)}
-                            />
-                            <TextInput
-                            style={{marginVertical: 20, marginLeft: 5}}
-                            value={value}
-                            onBlur={onBlur}
-                            placeholder='Estilo de encontro:'
-                            placeholderTextColor='black'
-                            onChangeText={value => onChange(value)}
-                            />
+                            <Text style={{marginVertical: 10, marginLeft: 5}}>Tipo de Rota:</Text>
                             <Picker
-                            style={{ marginVertical: 20}}
+                            
+                            selectedValue={selectedtyperote}
+                            onValueChange={(itemVal) => {
+                                setSelectedTyperote(itemVal)
+                            }}
+                            >
+                                {
+                                    type.map((t) => (
+                                        <Picker.Item label={t} value={t} />
+                                        ))
+                                }
+                            </Picker>
+
+                            <Text style={{marginVertical: 20, marginLeft:5 }}>Tipo de bike:</Text>
+                            <Picker
+                            style={{bottom: 10}}
+                            selectedValue={selectedbike}
+                            onValueChange={(itemVal) => {
+                                setSelectedbike(itemVal)
+                            }}
+                            >
+                                {
+                                    bike.map((b) => (
+                                        <Picker.Item label={b} value={b} />
+                                        ))
+                                }
+
+                            </Picker>
+                            <Text style={{marginVertical: 20, marginLeft:5 }}>Estilo de encontro:</Text>
+                            <Picker
+                            style={{bottom: 10}}
+                            selectedValue={selectedmeeting}
+                            onValueChange={(itemVal) => {
+                                setSelectedmeeting(itemVal)
+                            }}
+                            >
+                                {
+                                    meeting.map((e) => (
+                                        <Picker.Item label={e} value={e} />
+                                        ))
+                                }
+                            </Picker>
+                            
+                            <Text style={{marginVertical: 20, marginLeft:5 }}>Intensidade:</Text>
+                            <Picker
+                            style={{ marginVertical: 20, bottom: 25}}
                             selectedValue={selectedIntensify}
                             onValueChange={(itemVal) => {
                                 setSelectedIntensify(itemVal);
@@ -97,11 +146,20 @@ function ModalComponent (props) {
                                 ))
                             }
                             </Picker>
+
+                            <TextInput
+                                style={{marginVertical: 20, marginLeft: 5, color:'black'}}
+                                placeholder='Título'
+                                placeholderTextColor='gray'
+                                value={value}
+                                onChangeText={ value => onChange(value)}
+                            />    
+                            
                             </>
 	)}
 />
 
-            <Button color='#0091E2' title='submit' onPress={handleSubmit(onSubmit)} disabled={!isValid}/>
+            <Button color='green' title='concluir' onPress={handleSubmit(onSubmit)} disabled={!isValid}/>
             </SafeAreaView>
             </KeyboardAvoidingView>
 

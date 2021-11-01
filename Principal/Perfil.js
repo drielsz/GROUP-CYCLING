@@ -56,7 +56,7 @@ export default function Perfil ({route, navigation}) {
 
 
   const NavigationSocial = () => {
-    navigation.navigate("LoginScreen")
+    navigation.navigate("Social")
   }
   
   const DataEmail = firebase.auth().currentUser.email

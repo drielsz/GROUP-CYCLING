@@ -85,7 +85,6 @@ function Signin({navigation}) {
     }).catch((error) => {
       console.log(error.response.data);
     });
-      // console.log(response.data);
    
   };
 
@@ -162,6 +161,10 @@ function Signin({navigation}) {
       navigation.navigate("Recover")
   }
 
+  const TesteLoginGo = () => {
+    navigation.navigate("Hello")
+  }
+
   return (
 
     <ScrollView>
@@ -210,7 +213,7 @@ function Signin({navigation}) {
             <Text  onPress={() => RecoverGO()} style={styles.SText}>
             Esqueceu sua senha?
             </Text>
-            <TouchableOpacity style={{borderRadius: 15, bottom:140,}} onPress={() => Entrar()}>
+            <TouchableOpacity style={{borderRadius: 15, bottom:140,}}  onPress={() => SignIn()}>
               <LinearGradient
               start={{x: 0, y: 0}}
               end={{x: 1, y: 0}}
@@ -223,11 +226,8 @@ function Signin({navigation}) {
             Não tem conta? Crie uma conta
             </Text>  
 
-            <Buttons  style={[styles.buttonFace]} color="#4867aa" onPress={() => SignIn()}>
-            <Text>AXIOS</Text>
-            </Buttons>
-
-             <SimpleText onPress={Principal}> Ir para Principal </SimpleText>               
+             <SimpleText onPress={TesteLoginGo}>Ir para Hello</SimpleText>             
+             <SimpleText onPress={Principal}> Ir para Principal </SimpleText>  
           </Container>
         </View>
         </SafeAreaView>

@@ -64,6 +64,7 @@
     "react-native-animated-dots-carousel": "^1.0.1",
     "react-native-animated-pagination-dots": "^0.1.72",
     "react-native-app-intro-slider": "^4.0.4",
+    "react-native-bootstrap-styles": "^4.5.0-r",
     "react-native-extended-stylesheet": "^0.12.0",
     "react-native-fbsdk": "^3.0.0",
     "react-native-fbsdk-next": "^4.3.0",

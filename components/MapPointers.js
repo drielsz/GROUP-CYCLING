@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
-import { Marker } from 'react-native-maps';
+import {Alert, Modal, StyleSheet, Text, Pressable, View, Button, Image } from 'react-native';
+import { Marker, Callout } from 'react-native-maps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+
 
 import { api } from '../services/sqlite/axios.js';
 
-import markerImage from "../assets/marker.png";
+import FunctionAdd from './FunctionAdd'
+
+import MARKERGPC from "../assets/googleteste.png";
+import markerimage from '../assets/marker.png'
 
 import {
   Back,
@@ -18,6 +24,15 @@ import {
 
 const MapPointers = () => {
   const [pointers, setPointers] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const [counter, setCounter] = useState(0)
+  const incrementValue = () => {
+    console.log('TA CLICANDO')
+    setCounter(counter + 1)  
+  }
+  
+
 
   const handlePointers = async () => {
     let response = await api.get("events", {
@@ -25,7 +40,7 @@ const MapPointers = () => {
     }).then( async (response) => {
       setPointers(response.data);
     }).catch((error) => {
-      console.log(error.response.data);
+      alert(error.response.data.message);
     });
   };
 
@@ -41,11 +56,15 @@ const MapPointers = () => {
             coordinate={{ latitude: item.origin_latitude, longitude: item.origin_longitude }}
             anchor={{ x: 0, y: 0 }}
             key={item.id}
-            image={markerImage}
-          >
-            <LocationBox>
-              <LocationText>{item.title}</LocationText>
-            </LocationBox>
+            image={markerimage}
+          > 
+        {/*POSSIVEL SOLUÇÃO PARA O MARCADOR BUGADO, PUXANDO UMA IMAGE COM O TAMANHO PERSONALIZADO. */} 
+        {/* <Image source={require('../assets/googleteste.png')} style={{height: 16, width:16 }} resizeMode='contain'/> */}
+          <Callout onPress={incrementValue}>
+            <Text>{item.title}</Text>
+            <Text>{item.description}</Text>
+            <Text>Participantes: {counter}</Text>
+          </Callout>
           </Marker>
         )
         })

@@ -15,7 +15,7 @@ import RedeSocial from './RedeSocial/Social';
 import SocialChat from './RedeSocial/SocialChat'
 import LoginScreen  from './RedeSocial/LoginScreen'
 import Helpscreen from './pages/Signin/screenshelp/screenhelp'
-
+import Hello from './pages/Signin/TesteLogin/LoginTeste'
 
 
 const Stack = createStackNavigator();
@@ -69,7 +69,9 @@ function MyStack() {
       options={{headerShown:false}}
       />
 
-    
+      <Stack.Screen name="Hello" component={Hello}
+      options={{headerShown: false}} 
+      />
       
     </Stack.Navigator>
 

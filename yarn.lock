@@ -6251,7 +6251,7 @@ eventemitter3@^4.0.0:
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-4.0.7.tgz#2de9b68f6528d5644ef5c59526a1b4a07306169f"
   integrity sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==
 
-events@^3.0.0:
+events@^3.0.0, events@latest:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/events/-/events-3.3.0.tgz#31a95ad0a924e2d2c419a813aeb2c4e878ea7400"
   integrity sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==
@@ -12470,6 +12470,14 @@ react-native-app-intro-slider@^4.0.4:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/react-native-app-intro-slider/-/react-native-app-intro-slider-4.0.4.tgz#fa5cda7057db62c448ac975ffd2ba0cff94cc8d8"
   integrity sha512-Zkjaol6X3BbZkHUpVDj2LjdidpS6rCgKi0fx80xgGKa0pHxBRd4swWTv2bHnnvu5k1/HXwYk0mY2TbK+2jHl5w==
+
+react-native-bootstrap-styles@^4.5.0-r:
+  version "4.5.0-r"
+  resolved "https://registry.yarnpkg.com/react-native-bootstrap-styles/-/react-native-bootstrap-styles-4.5.0-r.tgz#82d8daf71f25a2b18b8a493a0f212b2158bd72a4"
+  integrity sha512-WGxwvbUaRwnVJNyOuXYHB3SaeCNMWzYKNY9YJl/0JlgUVuyq9Qk8N2O85AAYR/pK9ai239Qg8F8DJkejoNIbnQ==
+  dependencies:
+    color "^3.1.2"
+    events latest
 
 react-native-communications@^2.2.1:
   version "2.2.1"

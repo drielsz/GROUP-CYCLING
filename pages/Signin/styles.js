@@ -27,12 +27,6 @@ export const Container = styled.View`
     width: 90%;
 
 `
-
-export const ButtonSubmit = styled.TouchableOpacity`
- 
-
-`
-
 export const TextButton = styled.Text`
     color: #f5f5f5;
     font-size: 26px;
